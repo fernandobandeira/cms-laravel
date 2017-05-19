@@ -1,0 +1,40 @@
+// Variables
+@import "variables";
+@import "~normalize.css";
+
+body {
+  font-family: Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  background: $body-bg url('/layout/pattern.jpg');
+  color: $dark-color;
+  overflow-x: hidden;
+}
+
+#wrapper {
+  .el-menu-default {
+    &, .el-menu {
+      background-color: white;
+    }
+    border: 1px solid $dark-blue;
+
+    &.el-menu--horizontal {
+      margin-bottom: 15px;
+
+      .nav {
+        float: right;
+      }
+    }
+  }
+
+  .container {
+    padding: 0 15px;
+  }
+
+  .box {
+    padding: 20px;
+    border-radius: 2px;
+    border: 1px solid $dark-blue;
+    background-color: white;
+  }
+
+  @import "pages/login";
+}
