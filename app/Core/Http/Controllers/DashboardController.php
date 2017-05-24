@@ -7,6 +7,8 @@ use App\Core\Models\Modulo;
 
 class DashboardController extends Controller
 {
+    protected $index = 'Dashboard';
+
     public function index() {
         return view('pages.dashboard');
     }
@@ -20,10 +22,10 @@ class DashboardController extends Controller
         return $modulos;
     }
 
-    public function clientes() {
-        $clientes =  Projeto::All();
+    public function projetos() {
+        $projetos =  Projeto::All();
 
-        return $clientes;
+        return $projetos;
     }
 
     public function login() {

@@ -16,6 +16,7 @@ import Login from './components/Login.vue';
 import Navbar from './components/Navbar.vue';
 import Sidenav from './components/Sidenav.vue';
 import Gerenciadores from './components/Gerenciadores.vue';
+import Datatable from './components/Datatable.vue';
 
 window.axios = Axios;
 
@@ -27,6 +28,7 @@ Vue.component('login', Login);
 Vue.component('navbar', Navbar);
 Vue.component('sidenav', Sidenav);
 Vue.component('gerenciadores', Gerenciadores);
+Vue.component('datatable', Datatable);
 
 const app = new Vue({
     el: '#app'

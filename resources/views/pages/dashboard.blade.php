@@ -1,4 +1,4 @@
-@extends('gridLayout')
+@extends('layout')
 
 @section('content')
 <el-col :span="21">

@@ -9,13 +9,24 @@
         data: function() {
             return {
                 activeIndex: window.activeIndex,
-                modulos: window.modulos
+                modulos: []
             }
         },
         methods: {
             navegar: function(modulo) {
                 window.location = modulo.rota;
+            },
+            getModulos: function() {
+                let self = this;
+
+                window.axios.get('modulos')
+                    .then(function(response) {
+                        self.modulos = response.data;
+                    });
             }
+        },
+        created: function() {
+            this.getModulos();
         }
     }
 </script>

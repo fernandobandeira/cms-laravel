@@ -3,13 +3,14 @@
 namespace App\Modules\Generico\Produto;
 
 use App\Core\Http\Controllers\Controller;
+use App\Core\Http\Controllers\Traits\RestTrait;
 
 class ProdutoController extends Controller
 {
-    protected $index = 'Produto';
+    use RestTrait;
 
-    public function index() {
-        return view('pages.datatable')
-            ->with('index', $this->index);
-    }
+    protected $index = 'Produto';
+    protected $baseView = 'modules.generico.produto';
+
+    protected $model = Produto::class;
 }

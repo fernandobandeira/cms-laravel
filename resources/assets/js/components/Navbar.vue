@@ -1,6 +1,6 @@
 <template>
     <el-menu :default-active="activeIndex" class="el-menu-default" mode="horizontal">
-        <el-menu-item index="1" @click="navegar('/')">Dashboard</el-menu-item>
+        <el-menu-item index="Dashboard" @click="navegar('/')">Dashboard</el-menu-item>
 
         <el-submenu index="3" class="nav">
             <template slot="title">Fernando H. Bandeira</template>
@@ -15,7 +15,7 @@
     export default {
         data() {
             return {
-                activeIndex: ''
+                activeIndex: window.activeIndex
             };
         },
         methods: {

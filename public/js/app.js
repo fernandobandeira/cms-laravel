@@ -13389,12 +13389,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_Sidenav_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_Sidenav_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_Gerenciadores_vue__ = __webpack_require__(102);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_Gerenciadores_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__components_Gerenciadores_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_Datatable_vue__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_Datatable_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__components_Datatable_vue__);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+
 
 
 
@@ -13418,6 +13421,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('login', __WEBPACK_IMPORTE
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('navbar', __WEBPACK_IMPORTED_MODULE_7__components_Navbar_vue___default.a);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sidenav', __WEBPACK_IMPORTED_MODULE_8__components_Sidenav_vue___default.a);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('gerenciadores', __WEBPACK_IMPORTED_MODULE_9__components_Gerenciadores_vue___default.a);
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('datatable', __WEBPACK_IMPORTED_MODULE_10__components_Datatable_vue___default.a);
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
   el: '#app'
@@ -15614,10 +15618,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             activeIndex: '',
-            projetos: window.projetos
+            projetos: []
         };
     },
-    methods: {}
+    methods: {
+        getProjetos: function getProjetos() {
+            var self = this;
+
+            window.axios.get('projetos').then(function (response) {
+                self.projetos = response.data;
+            });
+        }
+    },
+    created: function created() {
+        this.getProjetos();
+    }
 });
 
 /***/ }),
@@ -15712,7 +15727,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            activeIndex: ''
+            activeIndex: window.activeIndex
         };
     },
 
@@ -15744,13 +15759,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             activeIndex: window.activeIndex,
-            modulos: window.modulos
+            modulos: []
         };
     },
     methods: {
         navegar: function navegar(modulo) {
             window.location = modulo.rota;
+        },
+        getModulos: function getModulos() {
+            var self = this;
+
+            window.axios.get('modulos').then(function (response) {
+                self.modulos = response.data;
+            });
         }
+    },
+    created: function created() {
+        this.getModulos();
     }
 });
 
@@ -50479,7 +50504,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-menu-item', {
     attrs: {
-      "index": "1"
+      "index": "Dashboard"
     },
     on: {
       "click": function($event) {
@@ -50700,6 +50725,101 @@ module.exports = g;
 __webpack_require__(30);
 module.exports = __webpack_require__(31);
 
+
+/***/ }),
+/* 112 */,
+/* 113 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            tableData: []
+        };
+    },
+
+    methods: {
+        getData: function getData() {
+            var self = this;
+
+            window.axios.get(window.location.href).then(function (response) {
+                self.tableData = response.data;
+            });
+        }
+    },
+    created: function created() {
+        this.getData();
+    }
+});
+
+/***/ }),
+/* 114 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(9)(
+  /* script */
+  __webpack_require__(113),
+  /* template */
+  __webpack_require__(115),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\User\\Desktop\\Code\\gerenciador\\resources\\assets\\js\\components\\Datatable.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Datatable.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-288903a3", Component.options)
+  } else {
+    hotAPI.reload("data-v-288903a3", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('el-table', {
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "data": _vm.tableData,
+      "stripe": ""
+    }
+  }, [_vm._t("default")], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-288903a3", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

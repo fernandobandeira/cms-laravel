@@ -5,6 +5,7 @@ namespace App\Core\Providers;
 use App;
 use View;
 use Tenanti;
+use Illuminate\Http\Request;
 use App\Core\Models\Projeto;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,17 +21,6 @@ class AppServiceProvider extends ServiceProvider
         if (! App::runningInConsole()) {
             Projeto::$tenant = Projeto::find(1);
         }
-
-        View::composer('gridLayout' , function ($view) {
-            $modulos = Projeto::$tenant->modulos;
-            $modulos->map(function($item) {
-                $item->rota = route(strtolower($item->modulo.'.index'));
-            });
-
-            $projetos = Projeto::All();
-
-            $view->with(compact('modulos', 'projetos'));
-        });
 
         Tenanti::connection('tenants', function (Projeto $entity, array $config, $database, $factory) {
             Projeto::$tenant = $entity;

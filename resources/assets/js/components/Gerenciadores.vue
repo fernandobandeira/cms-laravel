@@ -10,10 +10,21 @@
         data: function() {
             return {
                 activeIndex: '',
-                projetos: window.projetos
+                projetos: []
             }
         },
         methods: {
+            getProjetos: function() {
+                let self = this;
+
+                window.axios.get('projetos')
+                    .then(function(response) {
+                        self.projetos = response.data;
+                    });
+            }
+        },
+        created: function() {
+            this.getProjetos();
         }
     }
 </script>
