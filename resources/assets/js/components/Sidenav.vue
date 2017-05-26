@@ -1,5 +1,5 @@
 <template>
-    <el-menu :default-active="activeIndex" class="el-menu-default el-menu--vertical">
+    <el-menu class="el-menu-default el-menu--vertical" v-loading.body="loading">
         <el-menu-item :index="modulo.modulo" v-for="modulo in modulos" :key="modulo.id" @click="navegar(modulo)">{{ modulo.nome }}</el-menu-item>
     </el-menu>
 </template>
@@ -8,8 +8,8 @@
     export default {
         data: function() {
             return {
-                activeIndex: window.activeIndex,
-                modulos: []
+                modulos: [],
+                loading: true
             }
         },
         methods: {
@@ -21,6 +21,8 @@
 
                 window.axios.get('modulos')
                     .then(function(response) {
+                        self.loading = false;
+
                         self.modulos = response.data;
                     });
             }

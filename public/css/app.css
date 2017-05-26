@@ -509,6 +509,10 @@ body {
   float: right;
 }
 
+#wrapper .el-menu-default.el-menu--vertical {
+  min-height: 56px;
+}
+
 #wrapper .container {
   padding: 0 15px;
 }
@@ -518,6 +522,33 @@ body {
   border-radius: 2px;
   border: 1px solid #d1dbe5;
   background-color: white;
+}
+
+#wrapper .box .datatable {
+  padding-bottom: 45px;
+}
+
+#wrapper .box .datatable h3 {
+  float: left;
+  margin-top: 20px;
+}
+
+#wrapper .box .datatable .el-button.new {
+  float: right;
+  margin-top: 20px;
+}
+
+#wrapper .box .datatable .el-pagination {
+  float: right;
+  margin-top: 15px;
+}
+
+#wrapper #app {
+  transition: opacity 0.3s ease-in-out;
+}
+
+#wrapper #app.active {
+  opacity: 1 !important;
 }
 
 #wrapper .login {

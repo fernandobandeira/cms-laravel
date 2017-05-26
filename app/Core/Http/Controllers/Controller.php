@@ -19,19 +19,6 @@ class Controller extends BaseController
 
     public function __construct(Request $request)
     {
-        $request->merge(['index' => $this->index]);
         $this->request = $request;
-    }
-
-    protected function callMethod() {
-        $trace = debug_backtrace();
-        $caller = $trace[1];
-
-        if(isset($caller['function'])) {
-            $suffix = $this->request->wantsJson() ? 'Api' : 'Html';
-            $function = $caller['function'].$suffix;
-
-            return $this->{$function}();
-        }
     }
 }

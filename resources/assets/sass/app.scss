@@ -23,6 +23,10 @@ body {
         float: right;
       }
     }
+
+    &.el-menu--vertical {
+      min-height:56px;
+    }
   }
 
   .container {
@@ -34,6 +38,29 @@ body {
     border-radius: 2px;
     border: 1px solid $dark-blue;
     background-color: white;
+
+    .datatable {
+      padding-bottom: 45px;
+      h3 {
+        float: left;
+        margin-top: 20px;
+      }
+      .el-button.new {
+        float: right;
+        margin-top: 20px;
+      }
+      .el-pagination {
+        float: right;
+        margin-top: 15px;
+      }
+    }
+  }
+
+  #app {
+    transition: opacity 0.3s ease-in-out;
+    &.active {
+      opacity: 1 !important;
+    }
   }
 
   @import "pages/login";

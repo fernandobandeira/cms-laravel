@@ -4,12 +4,14 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "php": ">=5.6.4",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "marcelgwerder/laravel-api-handler": "^0.7.0",
-        "orchestra/tenanti": "~3.0",
+        "orchestra/tenanti": "3.4.x-dev#49c8f43bc3d0f9130cd05162eaea4ff31f5be2d6",
         "themsaid/laravel-model-transformers": "^1.0",
         "watson/validating": "^3.0"
     },

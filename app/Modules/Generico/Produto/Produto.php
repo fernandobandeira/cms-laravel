@@ -6,5 +6,9 @@ use App\Core\Models\Model;
 
 class Produto extends Model
 {
-
+    public $search = [
+        'nome',
+        'referencia',
+        'descricao'
+    ];
 }

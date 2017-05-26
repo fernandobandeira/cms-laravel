@@ -7,6 +7,7 @@
 
 import Vue from 'vue';
 import ElementUI from 'element-ui';
+import Loading from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';
 import lang from 'element-ui/lib/locale/lang/pt-BR';
 import locale from 'element-ui/lib/locale';
@@ -31,5 +32,11 @@ Vue.component('gerenciadores', Gerenciadores);
 Vue.component('datatable', Datatable);
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        isActive: false
+    },
+    mounted: function() {
+        this.isActive = true;
+    }
 });

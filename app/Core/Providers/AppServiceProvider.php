@@ -18,14 +18,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (! App::runningInConsole()) {
+        if (!App::runningInConsole()) {
             Projeto::$tenant = Projeto::find(1);
         }
 
         Tenanti::connection('tenants', function (Projeto $entity, array $config, $database, $factory) {
-            Projeto::$tenant = $entity;
-
-            $this->mapMigrations($entity, $factory);
+            if (App::runningInConsole()) {
+                $this->mapMigrations($entity, $factory);
+            }
 
             $config['database'] = $entity->dominio;
 
@@ -33,16 +33,16 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
-    public function mapMigrations($entity, $factory) {
-        $modulos = $entity->modulos;
-        if($modulos->first() !== null) {
-            foreach ($modulos as $m) {
+    public function mapMigrations($entity, $factory)
+    {
+        if ($entity->modulos->first() !== null) {
+            foreach ($entity->modulos as $m) {
                 $segmento = studly_case($m->segmento);
                 $modulo = studly_case($m->modulo);
-                $base = __DIR__.'/../../Modules/'.$segmento.'/'.$modulo.'/';
+                $base = __DIR__ . '/../../Modules/' . $segmento . '/' . $modulo . '/';
 
                 // Registra o diretório para carregar as migrations,
-                $factory->loadMigrationsFrom($base.'Migrations', $entity);
+                $factory->loadMigrationsFrom($base . 'Migrations', $entity);
             }
         }
     }

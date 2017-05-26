@@ -6,7 +6,11 @@ trait RestHtmlTrait
 {
     public function index()
     {
-        return view($this->baseView.'.index')
-            ->with('index', $this->index);
+        return view($this->baseView . '.index');
+    }
+
+    public function create()
+    {
+        return view($this->baseView . '.form');
     }
 }

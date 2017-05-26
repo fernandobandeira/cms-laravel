@@ -1,5 +1,5 @@
 <template>
-    <el-menu :default-active="activeIndex" class="el-menu-default" mode="horizontal">
+    <el-menu class="el-menu-default" mode="horizontal">
         <el-menu-item index="Dashboard" @click="navegar('/')">Dashboard</el-menu-item>
 
         <el-submenu index="3" class="nav">
@@ -13,15 +13,7 @@
 
 <script>
     export default {
-        data() {
-            return {
-                activeIndex: window.activeIndex
-            };
-        },
         methods: {
-            handleSelect(key, keyPath) {
-                console.log(key, keyPath);
-            },
             navegar: function(rota) {
                 window.location = rota;
             }

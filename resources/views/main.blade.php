@@ -13,7 +13,6 @@
 
     <script>
         window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};
-        window.activeIndex = '{{ request("index") }}';
     </script>
 
 </head>
@@ -21,7 +20,7 @@
 
     {{-- content --}}
     <main id="wrapper">
-        <div id="app">
+        <div id="app" style="opacity: 0;" v-bind:class="{ active: isActive }">
             @yield('app')
         </div>
     </main>

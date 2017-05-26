@@ -16,6 +16,6 @@ trait RestTrait
 
     public function index()
     {
-        return $this->callMethod();
+        return $this->request->wantsJson() ? $this->indexApi() : $this->indexHtml();
     }
 }

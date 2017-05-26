@@ -1,14 +1,12 @@
 @extends('layout')
 
 @section('content')
-<el-col :span="21">
-    <div class="box">
-        <h3>Listagem de Produtos</h3>
-        <el-button size="small" type="primary" icon="plus">Adicionar</el-button>
+<div class="datatable">
+    <h3>Listagem de Produtos</h3>
+    <el-button size="small" type="primary" icon="plus" class="new">Adicionar</el-button>
 
-        <datatable>
-            @yield('columns')
-        </datatable>
-    </div>
-</el-col>
+    <datatable>
+        @yield('columns')
+    </datatable>
+</div>
 @endsection

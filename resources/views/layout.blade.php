@@ -8,7 +8,11 @@
         <el-col :span="3">
             <sidenav></sidenav>
         </el-col>
-        @yield('content')
+        <el-col :span="21">
+            <div class="box">
+                @yield('content')
+            </div>
+        </el-col>
     </el-row>
 </div>
 @endsection

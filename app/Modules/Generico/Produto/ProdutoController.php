@@ -9,8 +9,8 @@ class ProdutoController extends Controller
 {
     use RestTrait;
 
-    protected $index = 'Produto';
     protected $baseView = 'modules.generico.produto';
 
+    protected $transformer = ProdutoTransformer::class;
     protected $model = Produto::class;
 }

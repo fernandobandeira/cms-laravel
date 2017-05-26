@@ -2,6 +2,7 @@
 
 namespace App\Core\Providers;
 
+use App;
 use Schema;
 use App\Core\Models\Projeto;
 use Illuminate\Support\Facades\Route;
@@ -39,12 +40,11 @@ class RouteServiceProvider extends ServiceProvider
     {
         // Verifica se a migration da tabela modulos já rodou para registrar
         // as rotas e migrations específicas para cada módulo da aplicação
-        if (Schema::hasTable('modulos')) {
-            $rotas['App\Core\Http\Controllers'] = __DIR__.'/../Http/routes.php';
-            $projeto = Projeto::$tenant;
+        if (!App::runningInConsole() && Schema::hasTable('modulos')) {
+            $rotas['App\Core\Http\Controllers'] = __DIR__ . '/../Http/routes.php';
 
-            if($projeto !== null && $projeto->modulos->first() !== null) {
-                foreach ($projeto->modulos as $m) {
+            if (Projeto::$tenant !== null && Projeto::$tenant->modulos->first() !== null) {
+                foreach (Projeto::$tenant->modulos as $m) {
                     $segmento = studly_case($m->segmento);
                     $modulo = studly_case($m->modulo);
                     $base = __DIR__ . '/../../Modules/' . $segmento . '/' . $modulo . '/';
