@@ -15867,6 +15867,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -15876,7 +15886,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             currentPage: 1,
             total: 0,
             pageSize: 15,
-            order: ''
+            order: '',
+            search: ''
         };
     },
 
@@ -15891,6 +15902,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             query += '&_offset=' + (this.currentPage - 1) * this.pageSize;
             if (this.order != '') {
                 query += '&_sort=' + this.order;
+            }
+            if (this.search != '') {
+                query += '&_q=' + this.search;
             }
 
             window.axios.get(window.location.href + query).then(function (response) {
@@ -15957,8 +15971,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.loading = true;
 
             window.axios.post(this.url, this.form).then(function (response) {
-                console.log(response);
-                window.location.href = self.url;
+                if (response.status == 201) {
+                    window.location.href = self.url;
+                } else {
+                    this.loading = false;
+                    //TODO
+                }
             });
         }
     }
@@ -108108,7 +108126,23 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('h3', [_vm._v("Listagem de Produtos")]), _vm._v(" "), _c('el-button', {
+  return _c('div', [_c('h3', [_vm._v("Listagem de Produtos")]), _vm._v(" "), _c('el-input', {
+    staticClass: "search",
+    attrs: {
+      "placeholder": "Pesquisar",
+      "icon": "search"
+    },
+    on: {
+      "change": _vm.getData
+    },
+    model: {
+      value: (_vm.search),
+      callback: function($$v) {
+        _vm.search = $$v
+      },
+      expression: "search"
+    }
+  }), _vm._v(" "), _c('el-button', {
     staticClass: "new",
     attrs: {
       "size": "small",
@@ -117661,7 +117695,8 @@ window.editorOptions = {
     contextmenu: "link hr inserttable | cell row column deletetable",
     menubar: '',
     language: 'pt_BR',
-    toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table insert | code'
+    toolbar: 'bold italic fontsizeselect | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table insert | code',
+    fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
 };
 
 /***/ })

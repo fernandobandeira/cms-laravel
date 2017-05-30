@@ -38,6 +38,7 @@ body {
     border-radius: 2px;
     border: 1px solid $dark-blue;
     background-color: white;
+    position: relative;
 
     .datatable {
       padding-bottom: 45px;
@@ -48,6 +49,13 @@ body {
       .el-button.new {
         float: right;
         margin-top: 20px;
+      }
+      .el-input.search {
+        width: 300px;
+        float: left;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 25%);
       }
       .el-pagination {
         float: right;

@@ -23,8 +23,12 @@
 
                 window.axios.post(this.url, this.form)
                     .then(function(response) {
-                        console.log(response);
-                        window.location.href = self.url;
+                        if (response.status == 201) {
+                            window.location.href = self.url;
+                        } else {
+                            this.loading = false;
+                            //TODO
+                        }
                     });
             }
         }

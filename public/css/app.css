@@ -522,6 +522,7 @@ body {
   border-radius: 2px;
   border: 1px solid #d1dbe5;
   background-color: white;
+  position: relative;
 }
 
 #wrapper .box .datatable {
@@ -536,6 +537,15 @@ body {
 #wrapper .box .datatable .el-button.new {
   float: right;
   margin-top: 20px;
+}
+
+#wrapper .box .datatable .el-input.search {
+  width: 300px;
+  float: left;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, 25%);
+          transform: translate(-50%, 25%);
 }
 
 #wrapper .box .datatable .el-pagination {

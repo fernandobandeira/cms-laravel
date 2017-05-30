@@ -17,5 +17,6 @@ window.editorOptions = {
     contextmenu: "link hr inserttable | cell row column deletetable",
     menubar: '',
     language: 'pt_BR',
-    toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table insert | code'
+    toolbar: 'bold italic fontsizeselect | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table insert | code',
+    fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
 };

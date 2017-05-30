@@ -1,6 +1,15 @@
 <template>
     <div>
         <h3>Listagem de Produtos</h3>
+
+        <el-input
+                placeholder="Pesquisar"
+                icon="search"
+                class="search"
+                @change="getData"
+                v-model="search">
+        </el-input>
+
         <el-button size="small" type="primary" icon="plus" class="new" @click="adicionar">Adicionar</el-button>
 
         <el-table
@@ -11,6 +20,7 @@
                 style="width: 100%">
             <slot></slot>
         </el-table>
+
         <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
@@ -32,7 +42,8 @@
                 currentPage: 1,
                 total: 0,
                 pageSize: 15,
-                order: ''
+                order: '',
+                search: ''
             }
         },
         methods: {
@@ -46,6 +57,9 @@
                 query += '&_offset=' + ((this.currentPage - 1) * this.pageSize);
                 if(this.order != '') {
                     query += '&_sort=' + this.order;
+                }
+                if(this.search != '') {
+                    query += '&_q=' + this.search;
                 }
 
                 window.axios.get(window.location.href + query)
