@@ -15,7 +15,7 @@
     export default {
         methods: {
             navegar: function(rota) {
-                window.location = rota;
+                window.location.href = rota;
             }
         }
     }

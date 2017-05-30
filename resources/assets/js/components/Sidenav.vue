@@ -14,12 +14,12 @@
         },
         methods: {
             navegar: function(modulo) {
-                window.location = modulo.rota;
+                window.location.href = modulo.rota;
             },
             getModulos: function() {
                 let self = this;
 
-                window.axios.get('modulos')
+                window.axios.get('/modulos')
                     .then(function(response) {
                         self.loading = false;
 

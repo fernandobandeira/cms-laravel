@@ -4,13 +4,11 @@ namespace App\Core\Http\Controllers\Traits;
 
 trait RestTrait
 {
-    use RestApiTrait
-    {
+    use RestApiTrait {
         RestApiTrait::index as indexApi;
     }
 
-    use RestHtmlTrait
-    {
+    use RestHtmlTrait {
         RestHtmlTrait::index as indexHtml;
     }
 

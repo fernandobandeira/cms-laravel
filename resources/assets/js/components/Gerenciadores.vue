@@ -1,7 +1,7 @@
 <template>
-    <el-submenu index="2" class="nav">
-        <template slot="title">Julias Closet</template>
-        <el-menu-item index="0" v-for="projeto in projetos" :key="projeto.id">{{ projeto.nome }}</el-menu-item>
+    <el-submenu index="2" class="nav" v-loading.body="loading">
+        <template slot="title">{{ projetoAtivo }}</template>
+        <el-menu-item index="0" v-for="projeto in projetos" :key="projeto.id" @click="navegar(projeto.dominio)">{{ projeto.nome }}</el-menu-item>
     </el-submenu>
 </template>
 
@@ -10,15 +10,26 @@
         data: function() {
             return {
                 activeIndex: '',
-                projetos: []
+                projetos: [],
+                projetoAtivo: '',
+                loading: true
             }
         },
         methods: {
+            navegar: function(dominio) {
+                let location = window.location.href;
+                window.location = 'http://' + location.replace(/^[^.]*/, dominio);
+            },
             getProjetos: function() {
                 let self = this;
 
-                window.axios.get('projetos')
+                window.axios.get('/projetos')
                     .then(function(response) {
+                        self.loading = false;
+
+                        self.projetoAtivo = response.data.ativo.nome;
+                        delete response.data.ativo;
+
                         self.projetos = response.data;
                     });
             }

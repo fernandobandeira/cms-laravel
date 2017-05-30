@@ -7,26 +7,31 @@ use App\Core\Models\Modulo;
 
 class DashboardController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return view('pages.dashboard');
     }
 
-    public function modulos() {
-        $modulos =  Modulo::All();
-        $modulos->map(function($item) {
-            $item->rota = route(strtolower($item->modulo.'.index'));
+    public function modulos()
+    {
+        $modulos = Modulo::All();
+        $modulos->map(function ($item) {
+            $item->rota = route(strtolower($item->modulo . '.index'));
         });
 
         return $modulos;
     }
 
-    public function projetos() {
-        $projetos =  Projeto::All();
+    public function projetos()
+    {
+        $projetos = Projeto::where('dominio', '!=', Projeto::$tenant->dominio)->get();
+        $projetos['ativo'] = Projeto::$tenant;
 
         return $projetos;
     }
 
-    public function login() {
+    public function login()
+    {
         return view('pages.login');
     }
 }

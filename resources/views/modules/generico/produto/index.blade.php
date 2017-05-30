@@ -3,17 +3,20 @@
 @section('columns')
 <el-table-column
         prop="referencia"
+        sortable
         label="Referência"
         width="300">
 </el-table-column>
 <el-table-column
         prop="nome"
+        sortable
         label="Nome">
 </el-table-column>
 <el-table-column
         prop="ativo"
+        sortable
         label="Ativo"
-        width="100">
+        width="120">
     <template scope="scope">
         <el-switch
                 v-model="scope.row.ativo"
@@ -24,8 +27,9 @@
 </el-table-column>
 <el-table-column
         prop="destaque"
+        sortable
         label="Destaque"
-        width="100">
+        width="120">
     <template scope="scope">
         <el-switch
                 v-model="scope.row.destaque"
@@ -36,8 +40,9 @@
 </el-table-column>
 <el-table-column
         prop="disponivel"
+        sortable
         label="Disponível"
-        width="125">
+        width="130">
     <template scope="scope">
         <el-switch
                 v-model="scope.row.disponivel"
