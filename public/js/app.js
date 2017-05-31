@@ -13746,9 +13746,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('generico-produto-form', _
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el: '#app',
     data: {
-        isActive: false,
-        form: typeof campos == 'undefined' ? '' : campos,
-        editorOptions: window.editorOptions
+        isActive: false
     },
     mounted: function mounted() {
         this.isActive = true;
@@ -16368,6 +16366,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         update: function update(data, column) {
             this.$parent.$emit('update', data, column);
+        },
+        editar: function editar(data) {
+            window.location.href = window.location.href + '/' + data.id + '/editar';
         }
     }
 });
@@ -118523,6 +118524,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           attrs: {
             "size": "small",
             "icon": "search"
+          },
+          on: {
+            "click": function($event) {
+              _vm.editar(scope.row)
+            }
           }
         }, [_vm._v("Ver")])]
       }
@@ -118596,8 +118602,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 nome: '',
                 descricao: ''
             },
-            url: window.location.href.replace('/novo', ''),
-            loading: false
+            url: '',
+            loading: false,
+            loadingForm: false,
+            update: false,
+            data: {},
+            editorOptions: window.editorOptions
         };
     },
 
@@ -118606,9 +118616,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var self = this;
             this.loading = true;
 
-            window.axios.post(this.url, this.form).then(function (response) {
-                window.location.href = self.url;
+            if (this.update == true) {
+                window.axios.put(this.url, this.form).then(function (response) {
+                    self.url = self.url.replace('/' + response.data.id, '');
+                    window.location.href = self.url;
+                });
+            } else {
+                window.axios.post(this.url, this.form).then(function (response) {
+                    window.location.href = self.url + '/' + response.data.id + '/editar';
+                });
+            }
+        },
+        getData: function getData() {
+            var self = this;
+
+            this.loadingForm = true;
+
+            window.axios.get(this.url).then(function (response) {
+                self.loadingForm = false;
+
+                Object.keys(self.form).forEach(function (k) {
+                    self.form[k] = response.data[k];
+                });
             });
+        }
+    },
+    created: function created() {
+        this.url = window.location.href;
+        if (this.url.indexOf('/editar') != -1) {
+            this.url = window.location.href.replace('/editar', '');
+            this.update = true;
+            this.getData();
+        } else {
+            this.url = window.location.href.replace('/novo', '');
         }
     }
 });
@@ -118653,7 +118693,20 @@ module.exports = Component.exports
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "form"
+    directives: [{
+      name: "loading",
+      rawName: "v-loading.fullscreen.lock",
+      value: (_vm.loadingForm),
+      expression: "loadingForm",
+      modifiers: {
+        "fullscreen": true,
+        "lock": true
+      }
+    }],
+    staticClass: "form",
+    attrs: {
+      "element-loading-text": "Carregando..."
+    }
   }, [_c('el-row', {
     attrs: {
       "gutter": 15
@@ -118740,7 +118793,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "form.nome"
     }
-  })], 1), _vm._v(" "), _c('el-form-item', {
+  })], 1), _vm._v(" "), (!_vm.update || !_vm.loadingForm) ? _c('el-form-item', {
     attrs: {
       "label": "Descrição"
     }
@@ -118756,7 +118809,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "form.descricao"
     }
-  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
+  })], 1) : _vm._e(), _vm._v(" "), _c('el-form-item', [_c('el-button', {
     attrs: {
       "type": "primary",
       "icon": "check",

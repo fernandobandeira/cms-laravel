@@ -38,6 +38,10 @@ trait RestApiTrait
         return response()->json($this->transformer::transform($model), 200);
     }
 
+    public function show(Model $model) {
+        return response()->json($this->transformer::transform($model), 200);
+    }
+
     public function reorder(Model $model, $position) {
         $builder = $this->model::where('ordem', '!=', $model->ordem);
 

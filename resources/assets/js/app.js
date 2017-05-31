@@ -43,9 +43,7 @@ Vue.component('generico-produto-form', GenericoProdutoForm);
 const app = new Vue({
     el: '#app',
     data: {
-        isActive: false,
-        form: typeof campos == 'undefined' ? '' : campos,
-        editorOptions: window.editorOptions
+        isActive: false
     },
     mounted: function() {
         this.isActive = true;

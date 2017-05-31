@@ -1,5 +1,5 @@
 <template>
-    <div class="form">
+    <div class="form" v-loading.fullscreen.lock="loadingForm" element-loading-text="Carregando...">
         <el-row :gutter="15">
             <el-col :span="15">
                 <el-form ref="form" :model="form" label-width="120px">
@@ -18,7 +18,7 @@
                     <el-form-item label="Nome">
                         <el-input v-model="form.nome"></el-input>
                     </el-form-item>
-                    <el-form-item label="Descrição">
+                    <el-form-item label="Descrição" v-if="!update || !loadingForm">
                         <tinymce id="descricao" v-model="form.descricao" :other-props="editorOptions"></tinymce>
                     </el-form-item>
                     <el-form-item>
@@ -40,10 +40,14 @@
                     destaque: false,
                     referencia: '',
                     nome: '',
-                    descricao: ''
+                    descricao: '',
                 },
-                url: window.location.href.replace('/novo', ''),
-                loading: false
+                url: '',
+                loading: false,
+                loadingForm: false,
+                update: false,
+                data: {},
+                editorOptions: window.editorOptions
             }
         },
         methods: {
@@ -51,10 +55,42 @@
                 let self = this;
                 this.loading = true;
 
-                window.axios.post(this.url, this.form)
+                if (this.update == true) {
+                    window.axios.put(this.url, this.form)
+                        .then(function(response) {
+                            self.url = self.url.replace('/' + response.data.id, '');
+                            window.location.href = self.url;
+                        });
+                } else {
+                    window.axios.post(this.url, this.form)
+                        .then(function(response) {
+                            window.location.href = self.url + '/' + response.data.id + '/editar';
+                        });
+                }
+            },
+            getData() {
+                let self = this;
+
+                this.loadingForm = true;
+
+                window.axios.get(this.url)
                     .then(function(response) {
-                        window.location.href = self.url;
+                        self.loadingForm = false;
+
+                        Object.keys(self.form).forEach(function(k){
+                            self.form[k] = response.data[k];
+                        });
                     });
+            }
+        },
+        created() {
+            this.url = window.location.href;
+            if (this.url.indexOf('/editar') != -1) {
+                this.url = window.location.href.replace('/editar', '');
+                this.update = true;
+                this.getData();
+            } else {
+                this.url = window.location.href.replace('/novo', '');
             }
         }
     }

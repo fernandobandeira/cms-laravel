@@ -170,6 +170,7 @@ return [
         Marcelgwerder\ApiHandler\ApiHandlerServiceProvider::class,
         Orchestra\Tenanti\TenantiServiceProvider::class,
         Orchestra\Tenanti\CommandServiceProvider::class,
+        Cviebrock\EloquentSluggable\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -228,6 +229,7 @@ return [
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'Tenanti' => Orchestra\Support\Facades\Tenanti::class,
         'URL' => Illuminate\Support\Facades\URL::class,
+        'Uuid' => Webpatser\Uuid\Uuid::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 

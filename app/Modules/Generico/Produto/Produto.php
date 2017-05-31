@@ -3,13 +3,11 @@
 namespace App\Modules\Generico\Produto;
 
 use App\Core\Models\Model;
-use \Rutorika\Sortable\SortableTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Produto extends Model
 {
-    use SortableTrait;
-
-    protected static $sortableField = 'ordem';
+    use Sluggable;
 
     public static $search = [
         'nome',

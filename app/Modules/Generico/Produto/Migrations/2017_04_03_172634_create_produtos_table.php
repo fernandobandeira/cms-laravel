@@ -16,6 +16,7 @@ class CreateProdutosTable extends Migration
         Schema::create(
             'produtos', function (Blueprint $table) {
                 $table->increments('id');
+                $table->uuid('uuid');
                 $table->boolean('ativo')->nullable()->default(false);
                 $table->boolean('disponivel')->nullable()->default(false);
                 $table->boolean('destaque')->nullable()->default(false);
@@ -26,6 +27,8 @@ class CreateProdutosTable extends Migration
                 $table->integer('ordem')->nullable();
                 $table->softDeletes();
                 $table->timestamps();
+
+                $table->unique('uuid');
             }
         );
     }

@@ -10,7 +10,7 @@ class ProdutoTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
         $output = [
-            'id' => $item->id,
+            'id' => $item->uuid,
             'ativo' => (bool) $item->ativo,
             'disponivel' => (bool) $item->disponivel,
             'destaque' => (bool) $item->destaque,

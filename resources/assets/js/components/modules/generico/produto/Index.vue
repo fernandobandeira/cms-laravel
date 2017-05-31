@@ -63,7 +63,7 @@
         </el-table-column>
         <el-table-column prop="id" label="Ações" width="100">
             <template scope="scope">
-                <el-button size="small" icon="search">Ver</el-button>
+                <el-button size="small" icon="search" @click="editar(scope.row)">Ver</el-button>
             </template>
         </el-table-column>
     </div>
@@ -74,6 +74,9 @@
         methods: {
             update(data, column) {
                 this.$parent.$emit('update', data, column);
+            },
+            editar(data) {
+                window.location.href = window.location.href + '/' + data.id + '/editar';
             }
         }
     }
