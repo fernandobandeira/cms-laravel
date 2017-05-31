@@ -57,6 +57,14 @@ body {
         left: 50%;
         transform: translate(-50%, 25%);
       }
+      .el-input.ordem {
+        width: 50px;
+        margin: 0 auto;
+
+        input {
+          text-align: center;
+        }
+      }
       .el-pagination {
         float: right;
         margin-top: 15px;

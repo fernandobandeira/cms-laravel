@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="datatable">
         <h3>Listagem de Produtos</h3>
 
         <el-input
@@ -17,7 +17,9 @@
                 stripe
                 v-loading.body="loading"
                 @sort-change="handleSortChange"
-                style="width: 100%">
+                row-key="id"
+                style="width: 100%"
+                @update="update">
             <slot></slot>
         </el-table>
 
@@ -47,7 +49,7 @@
             }
         },
         methods: {
-            getData: function() {
+            getData() {
                 let self = this;
                 let query = '';
 
@@ -67,6 +69,16 @@
                         self.total = parseInt(response.headers["meta-filter-count"]);
                         self.loading = false;
                         self.tableData = response.data;
+                    });
+            },
+            update(data, column) {
+                let self = this;
+                let dados = {};
+                dados[column] = data[column];
+
+                window.axios.put(window.location.href + '/' + data.id, dados)
+                    .then(function(response) {
+                        self.getData();
                     });
             },
             handleSizeChange(val) {

@@ -12,6 +12,7 @@
         "laravel/tinker": "~1.0",
         "marcelgwerder/laravel-api-handler": "^0.7.0",
         "orchestra/tenanti": "3.4.x-dev#49c8f43bc3d0f9130cd05162eaea4ff31f5be2d6",
+        "rutorika/sortable": "^3.2",
         "themsaid/laravel-model-transformers": "^1.0",
         "watson/validating": "^3.0"
     },

@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model as BaseModel;
 
 class Model extends BaseModel
 {
-    public $search = [];
+    public static $search = [];
     protected $guarded = ['id'];
 }

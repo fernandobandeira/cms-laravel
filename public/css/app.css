@@ -548,6 +548,15 @@ body {
           transform: translate(-50%, 25%);
 }
 
+#wrapper .box .datatable .el-input.ordem {
+  width: 50px;
+  margin: 0 auto;
+}
+
+#wrapper .box .datatable .el-input.ordem input {
+  text-align: center;
+}
+
 #wrapper .box .datatable .el-pagination {
   float: right;
   margin-top: 15px;
