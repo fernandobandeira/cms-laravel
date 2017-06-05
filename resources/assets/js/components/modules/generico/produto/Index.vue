@@ -3,7 +3,6 @@
         <el-table-column
                 prop="ordem"
                 label="Ordem"
-                sortable
                 width="120">
             <template scope="scope">
                 <el-input @blur="update(scope.row, 'ordem')" size="mini" v-model="scope.row.ordem" class="ordem"></el-input>
@@ -16,12 +15,10 @@
         </el-table-column>
         <el-table-column
                 prop="nome"
-                sortable
                 label="Nome">
         </el-table-column>
         <el-table-column
                 prop="ativo"
-                sortable
                 label="Ativo"
                 width="120">
             <template scope="scope">
@@ -35,7 +32,6 @@
         </el-table-column>
         <el-table-column
                 prop="disponivel"
-                sortable
                 label="Disponível"
                 width="130">
             <template scope="scope">
@@ -49,7 +45,6 @@
         </el-table-column>
         <el-table-column
                 prop="destaque"
-                sortable
                 label="Destaque"
                 width="120">
             <template scope="scope">

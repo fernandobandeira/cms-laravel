@@ -14,4 +14,8 @@ class Produto extends Model
         'referencia',
         'descricao'
     ];
+
+    protected $rules = [
+        'nome'   => 'required',
+    ];
 }

@@ -4,14 +4,19 @@ namespace App\Core\Models;
 
 use Uuid;
 use \Rutorika\Sortable\SortableTrait;
+use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 
 class Model extends BaseModel
 {
     use SortableTrait;
-    protected static $sortableField = 'ordem';
+    use ValidatingTrait;
 
+    protected $throwValidationExceptions = true;
+    protected static $sortableField = 'ordem';
+    protected $observables = ['validating'];
     public static $search = [];
+    protected $rules;
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     public function getRouteKeyName()
@@ -30,6 +35,7 @@ class Model extends BaseModel
 
     public static function boot() {
         self::bootSortableTrait();
+        self::bootValidatingTrait();
 
         $uses = class_uses(new static);
 

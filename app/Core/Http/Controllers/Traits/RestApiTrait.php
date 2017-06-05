@@ -11,7 +11,9 @@ trait RestApiTrait
     {
         $this->request->merge(['_config' => 'meta-total-count,meta-filter-count']);
 
-        $retorno = ApiHandler::parseMultiple($this->model::sorted(), $this->model::$search);
+        $model = $this->request->has('_sort') ? new $this->model : $this->model::sorted();
+
+        $retorno = ApiHandler::parseMultiple($model, $this->model::$search);
 
         return response()->json(
             $this->transformer::transform($retorno->getResult()),
