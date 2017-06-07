@@ -1,37 +1,62 @@
 <template>
     <div class="datatable">
-        <h3>Listagem de Produtos</h3>
-
-        <el-input
-                placeholder="Pesquisar"
-                icon="search"
-                class="search"
-                @change="getData"
-                v-model="search">
-        </el-input>
-
-        <el-button size="small" type="primary" icon="plus" class="new" @click="adicionar">Adicionar</el-button>
-
-        <el-table
-                :data="tableData"
-                stripe
-                v-loading.body="loading"
-                @sort-change="handleSortChange"
-                row-key="id"
-                style="width: 100%"
-                @update="update">
-            <slot></slot>
-        </el-table>
-
-        <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page.sync="currentPage"
-                :page-sizes="[15, 30, 100, 150, 300]"
-                :page-size="pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="total">
-        </el-pagination>
+        <v-card>
+            <v-card-title>
+                Listagem de Produtos
+                <v-spacer></v-spacer>
+                <v-text-field
+                        append-icon="search"
+                        label="Pesquisar"
+                        single-line
+                        hide-details
+                        v-model="search"
+                ></v-text-field>
+            </v-card-title>
+            <v-data-table
+                    v-bind:headers="headers"
+                    v-bind:items="tableData"
+                    v-bind:loading="loading"
+                    v-bind:search="search"
+                    v-bind:rows-per-page-text="pageText"
+                    v-bind:rows-per-page-items="pageNumbers"
+                    v-bind:noDataText="noDataText"
+                    v-bind:noResultsText="noResultsText"
+                    v-bind:total-items="total"
+                    v-bind:pagination.sync="pagination"
+            >
+                <template slot="items" scope="props">
+                    <td class="smallColumn">
+                        <v-text-field
+                                @change="update(props.item, 'ordem')"
+                                single-line
+                                v-model="props.item.ordem"
+                        ></v-text-field>
+                    </td>
+                    <td>{{ props.item.nome }}</td>
+                    <td class="mediumColumn">{{ props.item.referencia }}</td>
+                    <td class="smallColumn">
+                        <v-switch @change="update(props.item, 'ativo')" v-model="props.item.ativo" dark></v-switch>
+                    </td>
+                    <td class="smallColumn">
+                        <v-switch @change="update(props.item, 'disponivel')" v-model="props.item.disponivel" dark></v-switch>
+                    </td>
+                    <td class="smallColumn">
+                        <v-switch @change="update(props.item, 'destaque')" v-model="props.item.destaque" dark></v-switch>
+                    </td>
+                    <td class="text-xs-right mediumColumn">
+                        <v-btn icon dark>
+                            <v-icon>edit</v-icon>
+                        </v-btn>
+                        <v-btn icon dark>
+                            <v-icon>delete</v-icon>
+                        </v-btn>
+                    </td>
+                </template>
+            </v-data-table>
+        </v-card>
+        <v-btn floating class="indigo newButton">
+            <v-icon light>add</v-icon>
+        </v-btn>
     </div>
 </template>
 
@@ -40,25 +65,55 @@
         data() {
             return {
                 tableData: [],
-                loading: false,
-                currentPage: 1,
+                headers: [
+                    { text: 'Ordem', value: 'ordem', left: true },
+                    { text: 'Nome', value: 'nome', left: true },
+                    { text: 'Referência', value: 'referencia', left: true },
+                    { text: 'Ativo', value: 'ativo', left: true },
+                    { text: 'Disponível', value: 'disponivel', left: true },
+                    { text: 'Destaque', value: 'destaque', left: true },
+                    { text: 'Ações'}
+                ],
+                pageText: 'Itens por página:',
+                pageNumbers: [10, 25, 50, { text: 'Todos', value: -1 }],
+                noDataText: 'Não há itens para mostrar.',
+                noResultsText: 'Não foram encontrados resultados para a busca.',
+                loading: true,
+                pagination: { page:1, rowsPerPage: 10, sortBy: '' },
                 total: 0,
-                pageSize: 15,
-                order: '',
                 search: ''
+            }
+        },
+        watch: {
+            pagination: {
+                handler () {
+                    this.getData();
+                },
+                deep: true
+            },
+            search: {
+                handler () {
+                    this.getData();
+                },
+                deep: true
             }
         },
         methods: {
             getData() {
+                const { sortBy, descending, page, rowsPerPage } = this.pagination
                 let self = this;
                 let query = '';
 
                 this.loading = true;
 
-                query += '?_limit=' + this.pageSize;
-                query += '&_offset=' + ((this.currentPage - 1) * this.pageSize);
-                if(this.order != '') {
-                    query += '&_sort=' + this.order;
+                query += '?_limit=' + rowsPerPage;
+                query += '&_offset=' + ((page - 1) * rowsPerPage);
+                if(sortBy != '' && sortBy != null) {
+                    query += '&_sort=';
+                    if (descending) {
+                        query += '-';
+                    }
+                    query += sortBy;
                 }
                 if(this.search != '') {
                     query += '&_q=' + this.search;
@@ -81,30 +136,9 @@
                         self.getData();
                     });
             },
-            handleSizeChange(val) {
-                this.pageSize = val;
-                this.getData();
-            },
-            handleCurrentChange(val) {
-                this.currentPage = val;
-                this.getData();
-            },
-            handleSortChange(sort) {
-                this.order = '';
-                if (sort.prop != null) {
-                    if (sort.order === 'descending') {
-                        this.order = '-';
-                    }
-                    this.order += sort.prop;
-                }
-                this.getData();
-            },
             adicionar() {
                 window.location.href = window.location.href + '/novo';
             }
-        },
-        created: function() {
-            this.getData();
         }
     }
 </script>

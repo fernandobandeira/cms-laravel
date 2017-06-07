@@ -1,77 +1,7 @@
 // Variables
 @import "variables";
-@import "~normalize.css";
-
-body {
-  font-family: Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-  background: $body-bg url('/layout/pattern.jpg');
-  color: $dark-color;
-  overflow-x: hidden;
-}
 
 #wrapper {
-  .el-menu-default {
-    &, .el-menu {
-      background-color: white;
-    }
-    border: 1px solid $dark-blue;
-
-    &.el-menu--horizontal {
-      margin-bottom: 15px;
-
-      .nav {
-        float: right;
-      }
-    }
-
-    &.el-menu--vertical {
-      min-height:56px;
-    }
-  }
-
-  .container {
-    padding: 0 15px;
-  }
-
-  .box {
-    padding: 20px;
-    border-radius: 2px;
-    border: 1px solid $dark-blue;
-    background-color: white;
-    position: relative;
-
-    .datatable {
-      padding-bottom: 45px;
-      h3 {
-        float: left;
-        margin-top: 20px;
-      }
-      .el-button.new {
-        float: right;
-        margin-top: 20px;
-      }
-      .el-input.search {
-        width: 300px;
-        float: left;
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, 25%);
-      }
-      .el-input.ordem {
-        width: 50px;
-        margin: 0 auto;
-
-        input {
-          text-align: center;
-        }
-      }
-      .el-pagination {
-        float: right;
-        margin-top: 15px;
-      }
-    }
-  }
-
   #app {
     transition: opacity 0.3s ease-in-out;
     &.active {
@@ -79,6 +9,32 @@ body {
     }
   }
 
+  .datatable {
+    padding-bottom: 86px;
+
+    .newButton {
+      bottom: 15px;
+      right: 15px;
+      position: absolute;
+    }
+
+    .mediumColumn {
+      width: 150px;
+    }
+
+    .smallColumn {
+      width: 30px;
+
+      .input-group {
+        margin: 0;
+        width: 30px;
+      }
+
+      .input-group__details {
+        display: none;
+      }
+    }
+  }
   @import "pages/login";
   @import "pages/404";
 }

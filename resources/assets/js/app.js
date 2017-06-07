@@ -6,12 +6,10 @@
  */
 
 import Vue from 'vue';
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-default/index.css';
-import lang from 'element-ui/lib/locale/lang/pt-br';
-import locale from 'element-ui/lib/locale';
+import Vuetify from 'vuetify'
 import Axios from 'axios';
 
+import Layout from './components/Layout.vue';
 import Login from './components/Login.vue';
 import Navbar from './components/Navbar.vue';
 import Sidenav from './components/Sidenav.vue';
@@ -23,9 +21,7 @@ import GenericoProdutoForm from './components/modules/generico/produto/Form.vue'
 
 window.axios = Axios;
 
-locale.use(lang);
-
-Vue.use(ElementUI);
+Vue.use(Vuetify)
 
 import './tinymce';
 import TinyMCE from 'tinymce-vue-2';
@@ -36,6 +32,7 @@ Vue.component('navbar', Navbar);
 Vue.component('sidenav', Sidenav);
 Vue.component('gerenciadores', Gerenciadores);
 Vue.component('datatable', Datatable);
+Vue.component('layout', Layout);
 
 Vue.component('generico-produto-index', GenericoProdutoIndex);
 Vue.component('generico-produto-form', GenericoProdutoForm);

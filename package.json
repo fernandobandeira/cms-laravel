@@ -23,10 +23,10 @@
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "element-ui": "^1.3.2",
     "normalize.css": "^7.0.0",
     "tinymce": "^4.6.2",
-    "tinymce-vue-2": "0.0.2"
+    "tinymce-vue-2": "0.0.2",
+    "vuetify": "^0.12.7"
   },
   "plugins": [
     "transform-runtime"

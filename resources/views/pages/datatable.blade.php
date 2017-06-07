@@ -1,7 +1,9 @@
-@extends('layout')
+@extends('main')
 
-@section('content')
-<datatable>
-    <component is="{{$component}}"></component>
-</datatable>
+@section('app')
+<layout>
+    <datatable>
+        <component is="{{$component}}"></component>
+    </datatable>
+</layout>
 @endsection
