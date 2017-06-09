@@ -1,77 +1,53 @@
 <template>
-    <div>
-        <el-table-column
-                prop="ordem"
-                label="Ordem"
-                width="120">
-            <template scope="scope">
-                <el-input @blur="update(scope.row, 'ordem')" size="mini" v-model="scope.row.ordem" class="ordem"></el-input>
-            </template>
-        </el-table-column>
-        <el-table-column
-                prop="referencia"
-                label="Referência"
-                width="300">
-        </el-table-column>
-        <el-table-column
-                prop="nome"
-                label="Nome">
-        </el-table-column>
-        <el-table-column
-                prop="ativo"
-                label="Ativo"
-                width="120">
-            <template scope="scope">
-                <el-switch
-                        @change="update(scope.row, 'ativo')"
-                        v-model="scope.row.ativo"
-                        on-text=""
-                        off-text="">
-                </el-switch>
-            </template>
-        </el-table-column>
-        <el-table-column
-                prop="disponivel"
-                label="Disponível"
-                width="130">
-            <template scope="scope">
-                <el-switch
-                        @change="update(scope.row, 'disponivel')"
-                        v-model="scope.row.disponivel"
-                        on-text=""
-                        off-text="">
-                </el-switch>
-            </template>
-        </el-table-column>
-        <el-table-column
-                prop="destaque"
-                label="Destaque"
-                width="120">
-            <template scope="scope">
-                <el-switch
-                        @change="update(scope.row, 'destaque')"
-                        v-model="scope.row.destaque"
-                        on-text=""
-                        off-text="">
-                </el-switch>
-            </template>
-        </el-table-column>
-        <el-table-column prop="id" label="Ações" width="100">
-            <template scope="scope">
-                <el-button size="small" icon="search" @click="editar(scope.row)">Ver</el-button>
-            </template>
-        </el-table-column>
-    </div>
+    <datatable :headers="headers" nome="Listagem de Produtos">
+        <template slot="colunas" scope="props">
+            <td class="smallColumn">
+                <v-text-field
+                        @change="props.update(props.row.item, 'ordem')"
+                        single-line
+                        v-model="props.row.item.ordem"
+                ></v-text-field>
+            </td>
+            <td>
+                <a href="#">
+                    {{ props.row.item.nome }}
+                </a>
+            </td>
+            <td class="mediumColumn">{{ props.row.item.referencia }}</td>
+            <td class="smallColumn">
+                <v-switch @change="props.update(props.row.item, 'ativo')" v-model="props.row.item.ativo"></v-switch>
+            </td>
+            <td class="smallColumn">
+                <v-switch @change="props.update(props.row.item, 'disponivel')" v-model="props.row.item.disponivel"></v-switch>
+            </td>
+            <td class="smallColumn">
+                <v-switch @change="props.update(props.row.item, 'destaque')" v-model="props.row.item.destaque"></v-switch>
+            </td>
+            <td class="text-xs-right mediumColumn">
+                <v-btn icon dark>
+                    <v-icon>edit</v-icon>
+                </v-btn>
+                <v-btn icon dark>
+                    <v-icon>delete</v-icon>
+                </v-btn>
+            </td>
+        </template>
+    </datatable>
 </template>
 
 <script>
     export default {
-        methods: {
-            update(data, column) {
-                this.$parent.$emit('update', data, column);
-            },
-            editar(data) {
-                window.location.href = window.location.href + '/' + data.id + '/editar';
+        data() {
+            return {
+                headers: [
+                    { text: 'Ordem', value: 'ordem', left: true },
+                    { text: 'Nome', value: 'nome', left: true },
+                    { text: 'Referência', value: 'referencia', left: true },
+                    { text: 'Ativo', value: 'ativo', left: true },
+                    { text: 'Disponível', value: 'disponivel', left: true },
+                    { text: 'Destaque', value: 'destaque', left: true },
+                    { text: 'Ações', value: 'id'}
+                ]
             }
         }
     }

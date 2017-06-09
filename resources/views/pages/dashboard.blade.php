@@ -1,5 +1,9 @@
-@extends('layout')
+@extends('main')
 
 @section('content')
-yerywywer
+<layout>
+    <v-card>
+        fsafsafsaffsa
+    </v-card>
+</layout>
 @endsection

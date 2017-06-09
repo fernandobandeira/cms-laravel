@@ -2127,38 +2127,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['headers', 'nome'],
     data: function data() {
         return {
             tableData: [],
-            headers: [{ text: 'Ordem', value: 'ordem', left: true }, { text: 'Nome', value: 'nome', left: true }, { text: 'Referência', value: 'referencia', left: true }, { text: 'Ativo', value: 'ativo', left: true }, { text: 'Disponível', value: 'disponivel', left: true }, { text: 'Destaque', value: 'destaque', left: true }, { text: 'Ações' }],
             pageText: 'Itens por página:',
             pageNumbers: [10, 25, 50, { text: 'Todos', value: -1 }],
             noDataText: 'Não há itens para mostrar.',
@@ -2166,7 +2140,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             loading: true,
             pagination: { page: 1, rowsPerPage: 10, sortBy: '' },
             total: 0,
-            search: ''
+            search: '',
+            colunas: window.component
         };
     },
 
@@ -2218,6 +2193,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.tableData = response.data;
             });
         },
+        adicionar: function adicionar() {
+            window.location.href = window.location.href + '/novo';
+        },
+        criado: function criado(headers) {
+            this.headers = headers;
+        },
         update: function update(data, column) {
             var self = this;
             var dados = {};
@@ -2226,9 +2207,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.axios.put(window.location.href + '/' + data.id, dados).then(function (response) {
                 self.getData();
             });
-        },
-        adicionar: function adicionar() {
-            window.location.href = window.location.href + '/novo';
         }
     }
 });
@@ -2239,6 +2217,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2318,12 +2317,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             drawer: null,
-            items: [{ title: 'Home', icon: 'dashboard' }, { title: 'About', icon: 'question_answer' }],
             right: null
         };
     }
@@ -2431,6 +2438,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2608,44 +2624,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    methods: {
-        update: function update(data, column) {
-            this.$parent.$emit('update', data, column);
-        },
-        editar: function editar(data) {
-            window.location.href = window.location.href + '/' + data.id + '/editar';
-        }
+    data: function data() {
+        return {
+            headers: [{ text: 'Ordem', value: 'ordem', left: true }, { text: 'Nome', value: 'nome', left: true }, { text: 'Referência', value: 'referencia', left: true }, { text: 'Ativo', value: 'ativo', left: true }, { text: 'Disponível', value: 'disponivel', left: true }, { text: 'Destaque', value: 'destaque', left: true }, { text: 'Ações', value: 'id' }]
+        };
     }
 });
 
@@ -70181,35 +70165,42 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-submenu', {
-    directives: [{
-      name: "loading",
-      rawName: "v-loading.body",
-      value: (_vm.loading),
-      expression: "loading",
-      modifiers: {
-        "body": true
-      }
-    }],
-    staticClass: "nav",
+  return _c('v-list', {
+    staticClass: "pa-0"
+  }, [_c('v-list-item', [_c('div', {
+    staticClass: "gerenciadores"
+  }, [_c('v-list-tile', {
     attrs: {
-      "index": "2"
+      "tag": "ul"
     }
-  }, [_c('template', {
-    slot: "title"
-  }, [_vm._v(_vm._s(_vm.projetoAtivo))]), _vm._v(" "), _vm._l((_vm.projetos), function(projeto) {
-    return _c('el-menu-item', {
+  }, [_c('v-menu', {
+    attrs: {
+      "offset-y": ""
+    }
+  }, [_c('v-btn', {
+    attrs: {
+      "flat": "",
+      "block": ""
+    },
+    slot: "activator"
+  }, [_c('div', {
+    staticClass: "left"
+  }, [_vm._v("\n                            " + _vm._s(_vm.projetoAtivo) + "\n                        ")]), _vm._v(" "), _c('div', {
+    staticClass: "right"
+  }, [_c('v-icon', {
+    attrs: {
+      "dark": ""
+    }
+  }, [_vm._v("arrow_drop_down")])], 1)]), _vm._v(" "), _c('v-list', _vm._l((_vm.projetos), function(projeto) {
+    return _c('v-list-item', {
       key: projeto.id,
-      attrs: {
-        "index": "0"
-      },
       on: {
         "click": function($event) {
           _vm.navegar(projeto.dominio)
         }
       }
-    }, [_vm._v(_vm._s(projeto.nome))])
-  })], 2)
+    }, [_c('v-list-tile', [_c('v-list-tile-title', [_vm._v(_vm._s(projeto.nome))])], 1)], 1)
+  }))], 1)], 1)], 1)])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -70233,28 +70224,46 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "permanent": "",
       "light": ""
     }
-  }, [_c('v-list', {
-    staticClass: "pa-0"
-  }, [_c('v-list-item', [_c('v-list-tile', {
+  }, [_c('gerenciadores'), _vm._v(" "), _c('v-divider'), _vm._v(" "), _c('sidenav')], 1), _vm._v(" "), _c('v-toolbar', [_c('v-toolbar-title', [_c('a', {
     attrs: {
-      "avatar": "",
-      "tag": "ul"
+      "href": "/"
     }
-  })], 1)], 1), _vm._v(" "), _c('v-divider'), _vm._v(" "), _c('v-list', {
-    staticClass: "pt-0",
+  }, [_c('div', {
+    staticClass: "logo"
+  }, [_c('svg', {
     attrs: {
-      "dense": ""
+      "version": "1.1",
+      "id": "Layer_1",
+      "xmlns": "http://www.w3.org/2000/svg",
+      "xmlns:xlink": "http://www.w3.org/1999/xlink",
+      "x": "0px",
+      "y": "0px",
+      "width": "72px",
+      "height": "32px",
+      "viewBox": "0 18 109.5 51",
+      "enable-background": "new 0 18 109.5 51",
+      "xml:space": "preserve"
     }
-  }, _vm._l((_vm.items), function(item) {
-    return _c('v-list-item', {
-      key: item
-    }, [_c('v-list-tile', [_c('v-list-tile-action', [_c('v-icon', [_vm._v(_vm._s(item.icon))])], 1), _vm._v(" "), _c('v-list-tile-content', [_c('v-list-tile-title', [_vm._v(_vm._s(item.title))])], 1)], 1)], 1)
-  }))], 1), _vm._v(" "), _c('v-toolbar', {
-    staticClass: "cyan",
+  }, [_c('g', [_c('path', {
     attrs: {
-      "light": ""
+      "d": "M83.186,49.028c0.228-1.252,0.268-2.543,0.268-3.859c0-12.384-9.07-21.548-20.973-21.548\n                                c-11.899,0-21.548,9.647-21.548,21.548c0,11.9,9.647,21.549,21.548,21.549c6.878,0,11.981-2.197,16.245-6.207l0.855-0.959\n                                c0,0-7.166-6.041-7.198-6.059c-2.226,2.666-6.155,3.818-9.902,3.818c-5.355,0-9.898-3.471-11.511-8.283H83.186L83.186,49.028z\n                                 M62.482,33.026c5.368,0,9.519,3.085,11.123,7.914H50.96C52.563,36.111,57.114,33.026,62.482,33.026z"
     }
-  }, [_c('v-toolbar-title', [_vm._v("Toolbar")])], 1), _vm._v(" "), _c('main', [_c('v-container', {
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M45.561,41.226h-9.711h-4.519h-3.799l-6.464,7.701h14.791c-1.607,4.84-6.167,8.332-11.546,8.332\n                                c-6.719,0-12.166-5.447-12.166-12.166c0-6.72,5.446-12.167,12.166-12.167c3.88,0,7.334,1.818,9.561,4.646l6.133-7.308\n                                C36.071,26.1,30.496,23.5,24.313,23.5c-11.925,0-21.592,9.668-21.592,21.593c0,11.924,9.667,21.592,21.592,21.592\n                                c11.926,0,21.592-9.668,21.592-21.592C45.906,43.772,45.788,42.479,45.561,41.226z"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "stroke": "#000000",
+      "stroke-width": "0.0307",
+      "stroke-miterlimit": "10",
+      "d": "M100.786,56.946"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M98.961,57.274c-0.022,0-0.042-0.002-0.063-0.002c-0.007,0-0.015,0.002-0.021,0.002c0,0,0-0.002,0-0.004\n                                c-1.749-0.045-3.138-1.473-3.138-3.232c0-0.119,0.006-15.146,0.006-15.146l6.485-0.031l5.835-7.471h-12.32V20.068l-9.431-0.401\n                                h-0.013v35.852c0,1.66,0.363,3.236,1.014,4.652c0.02,0.045,0.04,0.09,0.062,0.133c0.029,0.064,0.061,0.127,0.091,0.189\n                                c1.755,3.58,5.366,6.146,9.848,6.213l0.507-0.002c1.814-0.023,3.451-0.232,4.932-0.58c1.962-0.615,3.716-1.695,5.135-3.113\n                                l-6.395-6.418C100.718,57.071,99.849,57.274,98.961,57.274z"
+    }
+  })])])])])])], 1), _vm._v(" "), _c('main', [_c('v-container', {
     attrs: {
       "fluid": ""
     }
@@ -70275,7 +70284,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "datatable"
-  }, [_c('v-card', [_c('v-card-title', [_vm._v("\n            Listagem de Produtos\n            "), _c('v-spacer'), _vm._v(" "), _c('v-text-field', {
+  }, [_c('v-card', [_c('v-card-title', [_vm._v("\n            " + _vm._s(_vm.nome) + "\n            "), _c('v-spacer'), _vm._v(" "), _c('v-text-field', {
     attrs: {
       "append-icon": "search",
       "label": "Pesquisar",
@@ -70310,105 +70319,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     scopedSlots: _vm._u([{
       key: "items",
       fn: function(props) {
-        return [_c('td', {
-          staticClass: "smallColumn"
-        }, [_c('v-text-field', {
-          attrs: {
-            "single-line": ""
-          },
-          on: {
-            "change": function($event) {
-              _vm.update(props.item, 'ordem')
-            }
-          },
-          model: {
-            value: (props.item.ordem),
-            callback: function($$v) {
-              props.item.ordem = $$v
-            },
-            expression: "props.item.ordem"
-          }
-        })], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(props.item.nome))]), _vm._v(" "), _c('td', {
-          staticClass: "mediumColumn"
-        }, [_vm._v(_vm._s(props.item.referencia))]), _vm._v(" "), _c('td', {
-          staticClass: "smallColumn"
-        }, [_c('v-switch', {
-          attrs: {
-            "dark": ""
-          },
-          on: {
-            "change": function($event) {
-              _vm.update(props.item, 'ativo')
-            }
-          },
-          model: {
-            value: (props.item.ativo),
-            callback: function($$v) {
-              props.item.ativo = $$v
-            },
-            expression: "props.item.ativo"
-          }
-        })], 1), _vm._v(" "), _c('td', {
-          staticClass: "smallColumn"
-        }, [_c('v-switch', {
-          attrs: {
-            "dark": ""
-          },
-          on: {
-            "change": function($event) {
-              _vm.update(props.item, 'disponivel')
-            }
-          },
-          model: {
-            value: (props.item.disponivel),
-            callback: function($$v) {
-              props.item.disponivel = $$v
-            },
-            expression: "props.item.disponivel"
-          }
-        })], 1), _vm._v(" "), _c('td', {
-          staticClass: "smallColumn"
-        }, [_c('v-switch', {
-          attrs: {
-            "dark": ""
-          },
-          on: {
-            "change": function($event) {
-              _vm.update(props.item, 'destaque')
-            }
-          },
-          model: {
-            value: (props.item.destaque),
-            callback: function($$v) {
-              props.item.destaque = $$v
-            },
-            expression: "props.item.destaque"
-          }
-        })], 1), _vm._v(" "), _c('td', {
-          staticClass: "text-xs-right mediumColumn"
-        }, [_c('v-btn', {
-          attrs: {
-            "icon": "",
-            "dark": ""
-          }
-        }, [_c('v-icon', [_vm._v("edit")])], 1), _vm._v(" "), _c('v-btn', {
-          attrs: {
-            "icon": "",
-            "dark": ""
-          }
-        }, [_c('v-icon', [_vm._v("delete")])], 1)], 1)]
+        return [_vm._t("colunas", null, {
+          row: props,
+          update: _vm.update
+        })]
       }
     }])
   })], 1), _vm._v(" "), _c('v-btn', {
-    staticClass: "indigo newButton",
+    staticClass: "newButton",
     attrs: {
+      "secondary": "",
       "floating": ""
+    },
+    on: {
+      "click": _vm.adicionar
     }
-  }, [_c('v-icon', {
-    attrs: {
-      "light": ""
-    }
-  }, [_vm._v("add")])], 1)], 1)
+  }, [_c('v-icon', [_vm._v("add")])], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -70658,29 +70584,20 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-menu', {
-    directives: [{
-      name: "loading",
-      rawName: "v-loading.body",
-      value: (_vm.loading),
-      expression: "loading",
-      modifiers: {
-        "body": true
-      }
-    }],
-    staticClass: "el-menu-default el-menu--vertical"
+  return _c('v-list', {
+    staticClass: "pt-0",
+    attrs: {
+      "dense": ""
+    }
   }, _vm._l((_vm.modulos), function(modulo) {
-    return _c('el-menu-item', {
+    return _c('v-list-item', {
       key: modulo.id,
-      attrs: {
-        "index": modulo.modulo
-      },
       on: {
         "click": function($event) {
           _vm.navegar(modulo)
         }
       }
-    }, [_vm._v(_vm._s(modulo.nome))])
+    }, [_c('v-list-tile', [_c('v-list-tile-action', [_c('v-icon', [_vm._v("shop")])], 1), _vm._v(" "), _c('v-list-tile-content', [_c('v-list-tile-title', [_vm._v(_vm._s(modulo.nome))])], 1)], 1)], 1)
   }))
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -70718,156 +70635,99 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('el-table-column', {
+  return _c('datatable', {
     attrs: {
-      "prop": "ordem",
-      "label": "Ordem",
-      "width": "120"
+      "headers": _vm.headers,
+      "nome": "Listagem de Produtos"
     },
     scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_c('el-input', {
-          staticClass: "ordem",
+      key: "colunas",
+      fn: function(props) {
+        return [_c('td', {
+          staticClass: "smallColumn"
+        }, [_c('v-text-field', {
           attrs: {
-            "size": "mini"
-          },
-          on: {
-            "blur": function($event) {
-              _vm.update(scope.row, 'ordem')
-            }
-          },
-          model: {
-            value: (scope.row.ordem),
-            callback: function($$v) {
-              scope.row.ordem = $$v
-            },
-            expression: "scope.row.ordem"
-          }
-        })]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "prop": "referencia",
-      "label": "Referência",
-      "width": "300"
-    }
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "prop": "nome",
-      "label": "Nome"
-    }
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "prop": "ativo",
-      "label": "Ativo",
-      "width": "120"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_c('el-switch', {
-          attrs: {
-            "on-text": "",
-            "off-text": ""
+            "single-line": ""
           },
           on: {
             "change": function($event) {
-              _vm.update(scope.row, 'ativo')
+              props.update(props.row.item, 'ordem')
             }
           },
           model: {
-            value: (scope.row.ativo),
+            value: (props.row.item.ordem),
             callback: function($$v) {
-              scope.row.ativo = $$v
+              props.row.item.ordem = $$v
             },
-            expression: "scope.row.ativo"
+            expression: "props.row.item.ordem"
           }
-        })]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "prop": "disponivel",
-      "label": "Disponível",
-      "width": "130"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_c('el-switch', {
+        })], 1), _vm._v(" "), _c('td', [_c('a', {
           attrs: {
-            "on-text": "",
-            "off-text": ""
-          },
+            "href": "#"
+          }
+        }, [_vm._v("\n                " + _vm._s(props.row.item.nome) + "\n            ")])]), _vm._v(" "), _c('td', {
+          staticClass: "mediumColumn"
+        }, [_vm._v(_vm._s(props.row.item.referencia))]), _vm._v(" "), _c('td', {
+          staticClass: "smallColumn"
+        }, [_c('v-switch', {
           on: {
             "change": function($event) {
-              _vm.update(scope.row, 'disponivel')
+              props.update(props.row.item, 'ativo')
             }
           },
           model: {
-            value: (scope.row.disponivel),
+            value: (props.row.item.ativo),
             callback: function($$v) {
-              scope.row.disponivel = $$v
+              props.row.item.ativo = $$v
             },
-            expression: "scope.row.disponivel"
+            expression: "props.row.item.ativo"
           }
-        })]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "prop": "destaque",
-      "label": "Destaque",
-      "width": "120"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_c('el-switch', {
-          attrs: {
-            "on-text": "",
-            "off-text": ""
-          },
+        })], 1), _vm._v(" "), _c('td', {
+          staticClass: "smallColumn"
+        }, [_c('v-switch', {
           on: {
             "change": function($event) {
-              _vm.update(scope.row, 'destaque')
+              props.update(props.row.item, 'disponivel')
             }
           },
           model: {
-            value: (scope.row.destaque),
+            value: (props.row.item.disponivel),
             callback: function($$v) {
-              scope.row.destaque = $$v
+              props.row.item.disponivel = $$v
             },
-            expression: "scope.row.destaque"
+            expression: "props.row.item.disponivel"
           }
-        })]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "prop": "id",
-      "label": "Ações",
-      "width": "100"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_c('el-button', {
-          attrs: {
-            "size": "small",
-            "icon": "search"
-          },
+        })], 1), _vm._v(" "), _c('td', {
+          staticClass: "smallColumn"
+        }, [_c('v-switch', {
           on: {
-            "click": function($event) {
-              _vm.editar(scope.row)
+            "change": function($event) {
+              props.update(props.row.item, 'destaque')
             }
+          },
+          model: {
+            value: (props.row.item.destaque),
+            callback: function($$v) {
+              props.row.item.destaque = $$v
+            },
+            expression: "props.row.item.destaque"
           }
-        }, [_vm._v("Ver")])]
+        })], 1), _vm._v(" "), _c('td', {
+          staticClass: "text-xs-right mediumColumn"
+        }, [_c('v-btn', {
+          attrs: {
+            "icon": "",
+            "dark": ""
+          }
+        }, [_c('v-icon', [_vm._v("edit")])], 1), _vm._v(" "), _c('v-btn', {
+          attrs: {
+            "icon": "",
+            "dark": ""
+          }
+        }, [_c('v-icon', [_vm._v("delete")])], 1)], 1)]
       }
     }])
-  })], 1)
+  })
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

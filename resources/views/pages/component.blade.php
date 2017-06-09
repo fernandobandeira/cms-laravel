@@ -1,5 +1,7 @@
-@extends('layout')
+@extends('main')
 
 @section('content')
-<component is="{{$component}}"></component>
+<layout>
+    <component is="{{$component}}"></component>
+</layout>
 @endsection

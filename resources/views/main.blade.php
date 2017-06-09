@@ -10,7 +10,6 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
-    <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <script>
@@ -24,7 +23,7 @@
     {{-- content --}}
     <main id="wrapper">
         <div id="app" style="opacity: 0;" v-bind:class="{ active: isActive }">
-            @yield('app')
+            @yield('content')
         </div>
     </main>
 

@@ -8,7 +8,7 @@ trait RestHtmlTrait
 {
     public function index()
     {
-        return view('pages.datatable')
+        return view('pages.component')
             ->with('component', $this->getComponentName().'-index');
     }
 

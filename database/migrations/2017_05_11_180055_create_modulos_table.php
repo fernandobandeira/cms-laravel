@@ -18,6 +18,7 @@ class CreateModulosTable extends Migration
             $table->string('nome');
             $table->string('modulo');
             $table->string('segmento');
+            $table->string('icone');
         });
     }
 
