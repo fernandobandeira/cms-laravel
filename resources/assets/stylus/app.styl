@@ -1,17 +1,11 @@
-@import "~vuetify/src/stylus/settings/_colors"
+/* Cores e variáveis do app */
+@import "variables.styl"
 
-$theme := {
-  primary: $grey.darken-4
-  accent: $blue-grey.darken-1
-  secondary: $yellow.accent-4
-  info: $blue.lighten-1
-  warning: $amber.darken-2
-  error: $red.accent-4
-  success: $green.lighten-2
-}
-$selection-switch-dark-enabled-color := $theme.secondary
-$selection-switch-light-enabled-color := $theme.secondary
+/* Configuração das bibliotecas */
+@import "config.styl"
 
+/* Carregamento das bibliotecas */
 @import "~vuetify/src/stylus/main"
 
+/* Carregamento das páginas */
 @import "main.styl"

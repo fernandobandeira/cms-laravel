@@ -5,7 +5,7 @@ namespace App\Modules\Generico\Produto;
 use Illuminate\Database\Eloquent\Model;
 use Themsaid\Transformers\AbstractTransformer;
 
-class ProdutoTransformer extends AbstractTransformer
+class Transformer extends AbstractTransformer
 {
     public function transformModel(Model $item)
     {

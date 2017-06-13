@@ -2,6 +2,7 @@
 
 namespace App\Core\Http\Controllers\Traits;
 
+use DB;
 use ApiHandler;
 use Illuminate\Database\Eloquent\Model;
 
@@ -44,15 +45,39 @@ trait RestApiTrait
         return response()->json($this->transformer::transform($model), 200);
     }
 
-    public function reorder(Model $model, $position) {
-        $builder = $this->model::where('ordem', '!=', $model->ordem);
+    public function destroy(Model $model) {
+        $model->delete();
+        $this->reorderQuery($model);
 
-        if($model->ordem < $position) {
-            $current = $builder->sorted()->where('ordem', '>=', $position)->first();
-            $model->moveAfter($current);
-        } else {
-            $current = $builder->orderBy('ordem', 'DESC')->where('ordem', '<=', $position)->first();
-            $model->moveBefore($current);
+        return response()->json('', 204);
+    }
+
+    public function reorder(Model $model, $position) {
+        $query = $this->model::where('ordem', '!=', $model->ordem);
+        $builder = clone $query;
+
+        $method = $model->ordem < $position ? 'moveAfter' : 'moveBefore';
+        $this->{$method}($model, $position, $query, $builder);
+    }
+
+    public function moveAfter(Model $model, $position, $query, $builder) {
+        $current = $builder->sorted()->where('ordem', '>=', $position)->first();
+        if($current == null) {
+            $current = $query->orderBy('ordem', 'DESC')->first();
         }
+        $model->moveAfter($current);
+    }
+
+    public function moveBefore(Model $model, $position, $query, $builder) {
+        $current = $builder->orderBy('ordem', 'DESC')->where('ordem', '<=', $position)->first();
+        if($current == null) {
+            $current = $query->sorted()->first();
+            $this->reorderQuery($model);
+        }
+        $model->moveBefore($current);
+    }
+
+    public function reorderQuery(Model $model) {
+        return DB::unprepared('SET @cont := 0; update '.$model->getTable().' set ordem = @cont := @cont + 1 order by ordem;');
     }
 }

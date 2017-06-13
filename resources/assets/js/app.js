@@ -16,12 +16,9 @@ import Sidenav from './components/Sidenav.vue';
 import Gerenciadores from './components/Gerenciadores.vue';
 import Datatable from './components/Datatable.vue';
 
-import GenericoProdutoIndex from './components/modules/generico/produto/Index.vue';
-import GenericoProdutoForm from './components/modules/generico/produto/Form.vue';
-
 window.axios = Axios;
 
-Vue.use(Vuetify)
+Vue.use(Vuetify);
 
 import './tinymce';
 import TinyMCE from 'tinymce-vue-2';
@@ -34,8 +31,15 @@ Vue.component('gerenciadores', Gerenciadores);
 Vue.component('datatable', Datatable);
 Vue.component('layout', Layout);
 
+import GenericoProdutoIndex from './components/modules/generico/produto/Index.vue';
+import GenericoProdutoForm from './components/modules/generico/produto/Form.vue';
+import GenericoCategoriaProdutoIndex from './components/modules/generico/categoriaproduto/Index.vue';
+import GenericoCategoriaProdutoForm from './components/modules/generico/categoriaproduto/Form.vue';
+
 Vue.component('generico-produto-index', GenericoProdutoIndex);
 Vue.component('generico-produto-form', GenericoProdutoForm);
+Vue.component('generico-categoriaproduto-index', GenericoCategoriaProdutoIndex);
+Vue.component('generico-categoriaproduto-form', GenericoCategoriaProdutoForm);
 
 const app = new Vue({
     el: '#app',

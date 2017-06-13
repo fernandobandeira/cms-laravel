@@ -2,23 +2,15 @@
     <div class="form">
         <v-card>
             <v-card-title>
-                Novo Produto
+                Nova Categoria
             </v-card-title>
             <v-layout row>
                 <v-flex xs10 offset-xs1 v-if="!loadingForm">
                     <v-switch label="Ativo" v-model="form.ativo" dark></v-switch>
-                    <v-switch label="Disponível" v-model="form.disponivel" dark></v-switch>
-                    <v-switch label="Destaque" v-model="form.destaque" dark></v-switch>
-                    <v-text-field
-                            v-model="form.referencia"
-                            label="Referência"
-                    ></v-text-field>
                     <v-text-field
                             v-model="form.nome"
                             label="Nome"
                     ></v-text-field>
-                    <span>Descrição</span>
-                    <tinymce id="descricao" v-model="form.descricao" :other-props="editorOptions"></tinymce>
                     <v-btn
                             class="saveButton"
                             light
@@ -44,11 +36,7 @@
             return {
                 form: {
                     ativo: true,
-                    disponivel: true,
-                    destaque: false,
-                    referencia: '',
                     nome: '',
-                    descricao: '',
                 },
                 url: '',
                 loading: false,

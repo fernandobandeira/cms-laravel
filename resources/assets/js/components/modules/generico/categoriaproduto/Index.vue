@@ -1,5 +1,5 @@
 <template>
-    <datatable :headers="headers" nome="Listagem de Produtos">
+    <datatable :headers="headers" nome="Listagem de Categorias">
         <template slot="colunas" scope="props">
             <td class="smallColumn">
                 <v-text-field
@@ -13,15 +13,8 @@
                     {{ props.row.item.nome }}
                 </a>
             </td>
-            <td class="mediumColumn">{{ props.row.item.referencia }}</td>
             <td class="smallColumn">
                 <v-switch @change="props.update(props.row.item, 'ativo')" v-model="props.row.item.ativo"></v-switch>
-            </td>
-            <td class="smallColumn">
-                <v-switch @change="props.update(props.row.item, 'disponivel')" v-model="props.row.item.disponivel"></v-switch>
-            </td>
-            <td class="smallColumn">
-                <v-switch @change="props.update(props.row.item, 'destaque')" v-model="props.row.item.destaque"></v-switch>
             </td>
             <td class="text-xs-right smallColumn">
                 <v-btn icon dark @click.native="props.dialog(props.row.item)">
@@ -39,10 +32,7 @@
                 headers: [
                     { text: 'Ordem', value: 'ordem', left: true },
                     { text: 'Nome', value: 'nome', left: true },
-                    { text: 'Referência', value: 'referencia', left: true },
                     { text: 'Ativo', value: 'ativo', left: true },
-                    { text: 'Disponível', value: 'disponivel', left: true },
-                    { text: 'Destaque', value: 'destaque', left: true },
                     { text: 'Ações', value: 'id'}
                 ]
             }

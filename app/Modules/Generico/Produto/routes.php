@@ -1,15 +1,15 @@
 <?php
 
-Route::model('produto', 'App\Modules\Generico\Produto\Produto');
+Route::model('produto', 'App\Modules\Generico\Produto\Model');
 
 Route::as('produto.')->prefix('produtos')->group(
     function () {
-        Route::name('index')->get('/', 'ProdutoController@index');
-        Route::name('create')->get('/novo', 'ProdutoController@create');
-        Route::name('show')->get('/{produto}', 'ProdutoController@show');
-        Route::name('edit')->get('/{produto}/editar', 'ProdutoController@edit');
-        Route::name('store')->post('/', 'ProdutoController@store');
-        Route::name('update')->match(['put', 'patch'], '/{produto}', 'ProdutoController@update');
-        Route::name('destroy')->delete('/{produto}', 'ProdutoController@destroy');
+        Route::name('index')->get('/', 'Controller@index');
+        Route::name('create')->get('/novo', 'Controller@create');
+        Route::name('show')->get('/{produto}', 'Controller@show');
+        Route::name('edit')->get('/{produto}/editar', 'Controller@edit');
+        Route::name('store')->post('/', 'Controller@store');
+        Route::name('update')->match(['put', 'patch'], '/{produto}', 'Controller@update');
+        Route::name('destroy')->delete('/{produto}', 'Controller@destroy');
     }
 );

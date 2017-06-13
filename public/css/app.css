@@ -1,3 +1,6 @@
+/* Cores e variáveis do app */
+/* Configuração das bibliotecas */
+/* Carregamento das bibliotecas */
 .light--text {
   color: #fff;
 }
@@ -9910,6 +9913,7 @@ table.table tfoot tr {
     text-align: justify !important;
   }
 }
+/* Carregamento das páginas */
 #wrapper #app {
   transition: opacity 0.3s ease-in-out;
 }
@@ -9946,33 +9950,37 @@ table.table tfoot tr {
 #wrapper .gerenciadores .list__tile {
   padding: 0;
 }
-#wrapper .datatable {
+#wrapper .listagem {
   padding-bottom: 86px;
 }
-#wrapper .datatable a {
+#wrapper .listagem .newButton {
+  bottom: 15px;
+  right: 15px;
+  position: absolute;
+}
+#wrapper .listagem .smallColumn {
+  width: 30px;
+}
+#wrapper .listagem .smallColumn .input-group {
+  margin: 0;
+  width: 30px;
+}
+#wrapper .listagem .smallColumn .input-group__details {
+  display: none;
+}
+#wrapper .listagem a {
   color: #546e7a;
   text-decoration: none;
   font-size: 14px;
   transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-#wrapper .datatable a:hover {
+#wrapper .listagem a:hover {
   color: #757575;
 }
-#wrapper .datatable .newButton {
-  bottom: 15px;
-  right: 15px;
-  position: absolute;
+#wrapper .form {
+  position: relative;
 }
-#wrapper .datatable .mediumColumn {
-  width: 150px;
-}
-#wrapper .datatable .smallColumn {
-  width: 30px;
-}
-#wrapper .datatable .smallColumn .input-group {
-  margin: 0;
-  width: 30px;
-}
-#wrapper .datatable .smallColumn .input-group__details {
-  display: none;
+#wrapper .form .saveButton {
+  float: right;
+  margin: 16px 0;
 }

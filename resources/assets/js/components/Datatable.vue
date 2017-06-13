@@ -1,5 +1,19 @@
 <template>
-    <div class="datatable">
+    <div class="listagem">
+        <v-dialog v-model="dialogOpen" :persistent="true">
+            <v-card>
+                <v-card-row>
+                    <v-card-title>Excluir item.</v-card-title>
+                </v-card-row>
+                <v-card-row>
+                    <v-card-text>Tem certeza que deseja excluir o item?</v-card-text>
+                </v-card-row>
+                <v-card-row actions>
+                    <v-btn secondary flat v-if="!loadingDelete" @click.native="closeDialog">Não</v-btn>
+                    <v-btn secondary flat @click.native="destroy" :loading="loadingDelete">Sim</v-btn>
+                </v-card-row>
+            </v-card>
+        </v-dialog>
         <v-card>
             <v-card-title>
                 {{ nome }}
@@ -24,11 +38,11 @@
                     v-bind:total-items="total"
                     v-bind:pagination.sync="pagination">
                 <template slot="items" scope="props">
-                    <slot name="colunas" :row="props" :update="update"></slot>
+                    <slot name="colunas" :row="props" :update="update" :editar="editar" :dialog="dialog"></slot>
                 </template>
             </v-data-table>
         </v-card>
-        <v-btn secondary floating class="newButton" @click="adicionar">
+        <v-btn secondary floating class="newButton" @click.native="adicionar">
             <v-icon>add</v-icon>
         </v-btn>
     </div>
@@ -45,10 +59,13 @@
                 noDataText: 'Não há itens para mostrar.',
                 noResultsText: 'Não foram encontrados resultados para a busca.',
                 loading: true,
+                loadingDelete: false,
                 pagination: { page:1, rowsPerPage: 10, sortBy: '' },
                 total: 0,
                 search: '',
-                colunas: window.component
+                colunas: window.component,
+                deletingItem: '',
+                dialogOpen: false,
             }
         },
         watch: {
@@ -96,8 +113,8 @@
             adicionar() {
                 window.location.href = window.location.href + '/novo';
             },
-            criado(headers) {
-                this.headers = headers;
+            editar(id) {
+                window.location.href = window.location.href + '/' + id + '/editar';
             },
             update(data, column) {
                 let self = this;
@@ -106,6 +123,26 @@
 
                 window.axios.put(window.location.href + '/' + data.id, dados)
                     .then(function(response) {
+                        self.getData();
+                    });
+            },
+            dialog(deletingItem) {
+                this.deletingItem = deletingItem;
+                this.dialogOpen = true;
+            },
+            closeDialog() {
+                this.deletingItem = '';
+                this.dialogOpen = false;
+            },
+            destroy() {
+                let self = this;
+                this.loadingDelete = true;
+
+                window.axios.delete(window.location.href + '/' + this.deletingItem.id)
+                    .then(function(response) {
+                        self.deletingItem = '';
+                        self.dialogOpen = false;
+                        self.loadingDelete = false;
                         self.getData();
                     });
             }
