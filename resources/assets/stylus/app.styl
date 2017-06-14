@@ -1,11 +1,55 @@
 /* Cores e variáveis do app */
-@import "variables.styl"
+//@import "variables.styl"
 
 /* Configuração das bibliotecas */
-@import "config.styl"
+//@import "config.styl"
 
 /* Carregamento das bibliotecas */
-@import "~vuetify/src/stylus/main"
+//@import "~vuetify/src/stylus/main"
 
 /* Carregamento das páginas */
-@import "main.styl"
+//@import "main.styl"
+
+@import "~normalize.css"
+
+body
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+
+#app
+  transition opacity .3s ease-in-out
+  &.active
+    opacity 1 !important
+
+  .sidebar
+    margin 20px 0 0 20px
+
+  .container
+    padding 20px
+
+  .pagination-container
+    margin-top 20px
+    &::after
+      content ''
+      display block
+      clear both
+
+  .search-container
+    margin-bottom 20px
+    width 300px
+
+  .logo
+    margin 10px 0
+    height 100%
+    width 72px
+    svg
+      position absolute
+      top 50%
+      transform translateY(-50%)
+      path
+        fill white
+
+  .fr
+    float right

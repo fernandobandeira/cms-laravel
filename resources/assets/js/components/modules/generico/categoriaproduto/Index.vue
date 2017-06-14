@@ -1,14 +1,11 @@
 <template>
     <datatable :headers="headers" nome="Listagem de Categorias">
         <template slot="colunas" scope="props">
-            <td class="smallColumn">
-                <v-text-field
-                        @change="props.update(props.row.item, 'ordem')"
-                        single-line
-                        v-model="props.row.item.ordem"
-                ></v-text-field>
-            </td>
             <td>
+                <span v-if="props.row.item.depth != 0">
+                    <span v-for="n in props.row.item.depth - 1">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
                 <a @click="props.editar(props.row.item.id)" href="#">
                     {{ props.row.item.nome }}
                 </a>
@@ -30,10 +27,9 @@
         data() {
             return {
                 headers: [
-                    { text: 'Ordem', value: 'ordem', left: true },
-                    { text: 'Nome', value: 'nome', left: true },
-                    { text: 'Ativo', value: 'ativo', left: true },
-                    { text: 'Ações', value: 'id'}
+                    { text: 'Nome', value: 'nome', left: true, sortable: false },
+                    { text: 'Ativo', value: 'ativo', left: true, sortable: false },
+                    { text: 'Ações', value: 'id', sortable: false}
                 ]
             }
         }

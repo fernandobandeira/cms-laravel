@@ -1,103 +1,83 @@
 <template>
-    <div class="listagem">
-        <v-dialog v-model="dialogOpen" :persistent="true">
-            <v-card>
-                <v-card-row>
-                    <v-card-title>Excluir item.</v-card-title>
-                </v-card-row>
-                <v-card-row>
-                    <v-card-text>Tem certeza que deseja excluir o item?</v-card-text>
-                </v-card-row>
-                <v-card-row actions>
-                    <v-btn secondary flat v-if="!loadingDelete" @click.native="closeDialog">Não</v-btn>
-                    <v-btn secondary flat @click.native="destroy" :loading="loadingDelete">Sim</v-btn>
-                </v-card-row>
-            </v-card>
-        </v-dialog>
-        <v-card>
-            <v-card-title>
-                {{ nome }}
-                <v-spacer></v-spacer>
-                <v-text-field
-                        append-icon="search"
-                        label="Pesquisar"
-                        single-line
-                        hide-details
-                        v-model="search"
-                ></v-text-field>
-            </v-card-title>
-            <v-data-table
-                    v-bind:headers="headers"
-                    v-bind:items="tableData"
-                    v-bind:loading="loading"
-                    v-bind:search="search"
-                    v-bind:rows-per-page-text="pageText"
-                    v-bind:rows-per-page-items="pageNumbers"
-                    v-bind:noDataText="noDataText"
-                    v-bind:noResultsText="noResultsText"
-                    v-bind:total-items="total"
-                    v-bind:pagination.sync="pagination">
-                <template slot="items" scope="props">
-                    <slot name="colunas" :row="props" :update="update" :editar="editar" :dialog="dialog"></slot>
-                </template>
-            </v-data-table>
-        </v-card>
-        <v-btn secondary floating class="newButton" @click.native="adicionar">
-            <v-icon>add</v-icon>
-        </v-btn>
-    </div>
+    <el-card class="box-card">
+        <div slot="header" class="clearfix">
+            <span style="line-height: 36px;">{{ nome }}</span>
+            <el-button size="small" type="primary" icon="plus" class="fr" @click="adicionar">Adicionar</el-button>
+        </div>
+        <div class="listagem">
+            <div class="search-container">
+                <el-input
+                        placeholder="Pesquisar"
+                        icon="search"
+                        class="search"
+                        @change="getData"
+                        v-model="search">
+                </el-input>
+            </div>
+
+            <el-table
+                    :data="tableData"
+                    stripe
+                    v-loading.body="loading"
+                    @sort-change="handleSortChange"
+                    row-key="id"
+                    style="width: 100%">
+                <slot name="colunas" :update="update" :editar="editar" :dialog="dialog"></slot>
+            </el-table>
+
+            <div class="pagination-container">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        class="fr"
+                        :current-page.sync="currentPage"
+                        :page-sizes="[15, 30, 100, 150, 300]"
+                        :page-size="pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="total">
+                </el-pagination>
+            </div>
+        </div>
+        <el-dialog
+                title="Aviso"
+                :visible.sync="dialogVisible"
+                size="tiny">
+                <span>Tem certeza que deseja excluir este item?</span>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="closeDialog">Cancelar</el-button>
+                    <el-button type="primary" @click="destroy" :loading="loadingDelete">Excluir</el-button>
+                </span>
+        </el-dialog>
+    </el-card>
 </template>
 
 <script>
     export default {
-        props: ['headers', 'nome'],
+        props: ['nome'],
         data() {
             return {
                 tableData: [],
-                pageText: 'Itens por página:',
-                pageNumbers: [10, 25, 50, { text: 'Todos', value: -1 }],
-                noDataText: 'Não há itens para mostrar.',
-                noResultsText: 'Não foram encontrados resultados para a busca.',
-                loading: true,
-                loadingDelete: false,
-                pagination: { page:1, rowsPerPage: 10, sortBy: '' },
+                loading: false,
+                currentPage: 1,
                 total: 0,
+                pageSize: 15,
+                order: '',
                 search: '',
-                colunas: window.component,
-                deletingItem: '',
-                dialogOpen: false,
-            }
-        },
-        watch: {
-            pagination: {
-                handler () {
-                    this.getData();
-                },
-                deep: true
-            },
-            search: {
-                handler () {
-                    this.getData();
-                },
-                deep: true
+                dialogVisible: false,
+                loadingDelete: false
             }
         },
         methods: {
             getData() {
-                const { sortBy, descending, page, rowsPerPage } = this.pagination
                 let self = this;
                 let query = '';
 
                 this.loading = true;
 
-                query += '?_limit=' + rowsPerPage;
-                query += '&_offset=' + ((page - 1) * rowsPerPage);
-                if(sortBy != '' && sortBy != null) {
-                    query += '&_sort=';
-                    if (descending) {
-                        query += '-';
-                    }
-                    query += sortBy;
+                query += '?_limit=' + this.pageSize;
+                query += '&_offset=' + ((this.currentPage - 1) * this.pageSize);
+                if(this.order != '') {
+                    query += '&_sort=' + this.order;
                 }
                 if(this.search != '') {
                     query += '&_q=' + this.search;
@@ -109,6 +89,24 @@
                         self.loading = false;
                         self.tableData = response.data;
                     });
+            },
+            handleSizeChange(val) {
+                this.pageSize = val;
+                this.getData();
+            },
+            handleCurrentChange(val) {
+                this.currentPage = val;
+                this.getData();
+            },
+            handleSortChange(sort) {
+                this.order = '';
+                if (sort.prop != null) {
+                    if (sort.order === 'descending') {
+                        this.order = '-';
+                    }
+                    this.order += sort.prop;
+                }
+                this.getData();
             },
             adicionar() {
                 window.location.href = window.location.href + '/novo';
@@ -128,24 +126,27 @@
             },
             dialog(deletingItem) {
                 this.deletingItem = deletingItem;
-                this.dialogOpen = true;
+                this.dialogVisible = true;
             },
             closeDialog() {
                 this.deletingItem = '';
-                this.dialogOpen = false;
+                this.dialogVisible = false;
             },
             destroy() {
                 let self = this;
                 this.loadingDelete = true;
 
-                window.axios.delete(window.location.href + '/' + this.deletingItem.id)
+                window.axios.delete(window.location.href + '/' + this.deletingItem)
                     .then(function(response) {
                         self.deletingItem = '';
-                        self.dialogOpen = false;
+                        self.dialogVisible = false;
                         self.loadingDelete = false;
                         self.getData();
                     });
             }
+        },
+        created: function() {
+            this.getData();
         }
     }
 </script>

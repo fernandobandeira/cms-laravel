@@ -6,7 +6,10 @@
  */
 
 import Vue from 'vue';
-import Vuetify from 'vuetify'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-default/index.css';
+import lang from 'element-ui/lib/locale/lang/pt-br';
+import locale from 'element-ui/lib/locale';
 import Axios from 'axios';
 
 import Layout from './components/Layout.vue';
@@ -18,7 +21,8 @@ import Datatable from './components/Datatable.vue';
 
 window.axios = Axios;
 
-Vue.use(Vuetify);
+locale.use(lang);
+Vue.use(ElementUI);
 
 import './tinymce';
 import TinyMCE from 'tinymce-vue-2';

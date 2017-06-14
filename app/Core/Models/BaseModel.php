@@ -14,12 +14,8 @@ abstract class BaseModel extends Model
     protected $observables = ['validating'];
     public static $search = [];
     protected $rules;
-    protected $guarded = ['id', 'created_at', 'updated_at'];
-
-    public function getRouteKeyName()
-    {
-        return 'uuid';
-    }
+    protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
+    public $incrementing = false;
 
     public function sluggable()
     {
@@ -40,8 +36,8 @@ abstract class BaseModel extends Model
         }
 
         self::creating(function($model) {
-            if($model->uuid === null) {
-                $model->uuid = Uuid::generate(4);
+            if($model->id === null) { //TODO Checar se UUID é válido
+                $model->id = Uuid::generate(4);
             }
         });
     }

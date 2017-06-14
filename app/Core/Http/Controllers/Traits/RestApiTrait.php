@@ -13,6 +13,7 @@ trait RestApiTrait
         $this->request->merge(['_config' => 'meta-total-count,meta-filter-count']);
 
         $model = $this->request->has('_sort') ? new $this->model : $this->model::sorted();
+        $model = $this->applyScopes($model);
 
         $retorno = ApiHandler::parseMultiple($model, $this->model::$search);
 
@@ -25,7 +26,7 @@ trait RestApiTrait
     public function store()
     {
         $model = $this->model::create($this->request->all());
-        $model->refresh();
+        $model = $this->refresh($model);
 
         return response()->json($this->transformer::transform($model), 201);
     }
@@ -36,12 +37,13 @@ trait RestApiTrait
             $model->refresh();
         }
         $model->update($this->request->except('ordem'));
-        $model->refresh();
+        $model = $this->refresh($model);
 
         return response()->json($this->transformer::transform($model), 200);
     }
 
     public function show(Model $model) {
+        $model = $this->refresh($model);
         return response()->json($this->transformer::transform($model), 200);
     }
 
@@ -79,5 +81,14 @@ trait RestApiTrait
 
     public function reorderQuery(Model $model) {
         return DB::unprepared('SET @cont := 0; update '.$model->getTable().' set ordem = @cont := @cont + 1 order by ordem;');
+    }
+
+    public function applyScopes($model) {
+        return $model;
+    }
+
+    public function refresh($model) {
+        $model = $this->model::whereKey($model->getKey());
+        return $this->applyScopes($model)->first();
     }
 }

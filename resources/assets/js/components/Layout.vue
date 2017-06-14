@@ -1,12 +1,7 @@
 <template>
-    <v-app id="example-2">
-        <v-navigation-drawer permanent light>
-            <gerenciadores></gerenciadores>
-            <v-divider></v-divider>
-            <sidenav></sidenav>
-        </v-navigation-drawer>
-        <v-toolbar>
-            <v-toolbar-title>
+    <div>
+        <el-menu theme="dark" :default-active="''" mode="horizontal">
+            <el-menu-item index="1">
                 <a href="/">
                     <div class="logo">
                         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -30,14 +25,28 @@
                         </svg>
                     </div>
                 </a>
-            </v-toolbar-title>
-        </v-toolbar>
-        <main>
-            <v-container fluid>
-                <slot></slot>
-            </v-container>
-        </main>
-    </v-app>
+            </el-menu-item>
+            <el-submenu index="2" class="fr">
+                <template slot="title">Workspace</template>
+                <el-menu-item index="2-1">item one</el-menu-item>
+                <el-menu-item index="2-2">item two</el-menu-item>
+                <el-menu-item index="2-3">item three</el-menu-item>
+            </el-submenu>
+            <el-menu-item index="3" class="fr"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
+        </el-menu>
+        <el-row>
+            <el-col :span="3">
+                <div class="sidebar">
+                    <sidenav></sidenav>
+                </div>
+            </el-col>
+            <el-col :span="21">
+                <div class="container">
+                    <slot></slot>
+                </div>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 <script>

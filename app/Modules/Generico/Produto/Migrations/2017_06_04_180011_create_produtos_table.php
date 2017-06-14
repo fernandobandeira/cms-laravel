@@ -1,11 +1,10 @@
 <?php
 
-use Kalnoy\Nestedset\NestedSet;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriasProdutosTable extends Migration
+class CreateProdutosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,17 +14,20 @@ class CreateCategoriasProdutosTable extends Migration
     public function up()
     {
         Schema::create(
-            'categorias_produtos', function (Blueprint $table) {
-                $table->increments('id');
-                $table->uuid('uuid');
+            'produtos', function (Blueprint $table) {
+                $table->uuid('id');
                 $table->boolean('ativo')->nullable()->default(false);
+                $table->boolean('disponivel')->nullable()->default(false);
+                $table->boolean('destaque')->nullable()->default(false);
                 $table->string('nome', 150);
                 $table->string('slug', 150)->nullable();
-                NestedSet::columns($table);
+                $table->string('referencia', 45)->nullable();
+                $table->text('descricao')->nullable();
+                $table->integer('ordem')->nullable();
                 $table->softDeletes();
                 $table->timestamps();
 
-                $table->unique('uuid');
+                $table->primary('id');
             }
         );
     }
@@ -37,6 +39,6 @@ class CreateCategoriasProdutosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categorias_produtos');
+        Schema::dropIfExists('produtos');
     }
 }

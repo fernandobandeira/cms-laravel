@@ -10,10 +10,12 @@ class Transformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
         $output = [
-            'id' => $item->uuid,
+            'id' => $item->id,
             'ativo' => (bool) $item->ativo,
             'nome' => $item->nome,
-            'slug' => $item->slug
+            'slug' => $item->slug,
+            'parent_id' => $item->parent_id,
+            'depth' => $item->depth
         ];
 
         return $output;

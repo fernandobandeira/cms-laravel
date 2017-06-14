@@ -2,7 +2,7 @@
 
 Route::model('categoriaproduto', 'App\Modules\Generico\CategoriaProduto\Model');
 
-Route::as('categoriaproduto.')->prefix('categorias')->group(
+Route::as('categoriaproduto.')->prefix('categoriasprodutos')->group(
     function () {
         Route::name('index')->get('/', 'Controller@index');
         Route::name('create')->get('/novo', 'Controller@create');

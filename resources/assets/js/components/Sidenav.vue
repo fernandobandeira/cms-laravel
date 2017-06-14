@@ -1,16 +1,7 @@
 <template>
-    <v-list dense class="pt-0">
-        <v-list-item v-for="modulo in modulos" :key="modulo.id" @click="navegar(modulo)">
-            <v-list-tile>
-                <v-list-tile-action>
-                    <v-icon>shop</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ modulo.nome }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-        </v-list-item>
-    </v-list>
+    <el-menu v-loading.body="loading" defaultActive="''">
+        <el-menu-item :index="modulo.modulo" v-for="modulo in modulos" :key="modulo.id" @click="navegar(modulo)">{{ modulo.nome }}</el-menu-item>
+    </el-menu>
 </template>
 
 <script>

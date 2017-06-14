@@ -1,6 +1,5 @@
 <?php
 
-use Kalnoy\Nestedset\NestedSet;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -16,11 +15,11 @@ class CreateCategoriasProdutosProdutosTable extends Migration
     {
         Schema::create(
             'categorias_produtos_produtos', function (Blueprint $table) {
-                $table->integer('categoria_produto_id')->unsigned()->nullable();
+                $table->uuid('categoria_produto_id');
                 $table->foreign('categoria_produto_id')->references('id')
                     ->on('categorias_produtos')->onDelete('cascade');
 
-                $table->integer('produto_id')->unsigned()->nullable();
+                $table->uuid('produto_id');
                 $table->foreign('produto_id')->references('id')
                     ->on('produtos')->onDelete('cascade');
 

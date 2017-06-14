@@ -9,23 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <script>
         window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};
     </script>
-    @stack('var')
-
 </head>
 <body>
 
     {{-- content --}}
-    <main id="wrapper">
-        <div id="app" style="opacity: 0;" v-bind:class="{ active: isActive }">
-            @yield('content')
-        </div>
-    </main>
+    <div id="app" style="opacity: 0;" v-bind:class="{ active: isActive }">
+        @yield('content')
+    </div>
 
     {{-- scripts --}}
     <script async src="{{ asset('js/app.js') }}"></script>

@@ -1,51 +1,76 @@
 <template>
-    <datatable :headers="headers" nome="Listagem de Produtos">
-        <template slot="colunas" scope="props">
-            <td class="smallColumn">
-                <v-text-field
-                        @change="props.update(props.row.item, 'ordem')"
-                        single-line
-                        v-model="props.row.item.ordem"
-                ></v-text-field>
-            </td>
-            <td>
-                <a @click="props.editar(props.row.item.id)" href="#">
-                    {{ props.row.item.nome }}
-                </a>
-            </td>
-            <td class="mediumColumn">{{ props.row.item.referencia }}</td>
-            <td class="smallColumn">
-                <v-switch @change="props.update(props.row.item, 'ativo')" v-model="props.row.item.ativo"></v-switch>
-            </td>
-            <td class="smallColumn">
-                <v-switch @change="props.update(props.row.item, 'disponivel')" v-model="props.row.item.disponivel"></v-switch>
-            </td>
-            <td class="smallColumn">
-                <v-switch @change="props.update(props.row.item, 'destaque')" v-model="props.row.item.destaque"></v-switch>
-            </td>
-            <td class="text-xs-right smallColumn">
-                <v-btn icon dark @click.native="props.dialog(props.row.item)">
-                    <v-icon>delete</v-icon>
-                </v-btn>
-            </td>
+    <datatable nome="Listagem de Produtos">
+        <template slot="colunas" scope="parent">
+            <el-table-column
+                    sortable="custom"
+                    prop="ordem"
+                    label="Ordem"
+                    width="110">
+                <template scope="scope">
+                    <el-input @blur="parent.update(scope.row, 'ordem')" size="mini" v-model="scope.row.ordem" class="ordem"></el-input>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    sortable="custom"
+                    prop="referencia"
+                    label="Referência"
+                    width="300">
+            </el-table-column>
+            <el-table-column
+                    sortable="custom"
+                    prop="nome"
+                    label="Nome">
+                <template scope="scope">
+                    <a @click="parent.editar(scope.row.id)">{{scope.row.nome}}</a>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    sortable="custom"
+                    prop="ativo"
+                    label="Ativo"
+                    width="120">
+                <template scope="scope">
+                    <el-switch
+                            @change.native="parent.update(scope.row, 'ativo')"
+                            v-model="scope.row.ativo"
+                            on-text=""
+                            off-text="">
+                    </el-switch>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    sortable="custom"
+                    prop="disponivel"
+                    label="Disponível"
+                    width="130">
+                <template scope="scope">
+                    <el-switch
+                            @change.native="parent.update(scope.row, 'disponivel')"
+                            v-model="scope.row.disponivel"
+                            on-text=""
+                            off-text="">
+                    </el-switch>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    sortable="custom"
+                    prop="destaque"
+                    label="Destaque"
+                    width="120">
+                <template scope="scope">
+                    <el-switch
+                            @change.native="parent.update(scope.row, 'destaque')"
+                            v-model="scope.row.destaque"
+                            on-text=""
+                            off-text="">
+                    </el-switch>
+                </template>
+            </el-table-column>
+            <el-table-column prop="id" label="Ações" width="100">
+                <template scope="scope">
+                    <el-button size="small" icon="delete" @click="parent.dialog(scope.row.id)"></el-button>
+                </template>
+            </el-table-column>
         </template>
     </datatable>
 </template>
-
-<script>
-    export default {
-        data() {
-            return {
-                headers: [
-                    { text: 'Ordem', value: 'ordem', left: true },
-                    { text: 'Nome', value: 'nome', left: true },
-                    { text: 'Referência', value: 'referencia', left: true },
-                    { text: 'Ativo', value: 'ativo', left: true },
-                    { text: 'Disponível', value: 'disponivel', left: true },
-                    { text: 'Destaque', value: 'destaque', left: true },
-                    { text: 'Ações', value: 'id'}
-                ]
-            }
-        }
-    }
-</script>

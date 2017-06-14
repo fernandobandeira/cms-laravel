@@ -9,7 +9,7 @@ abstract class NestedModel extends BaseModel
     use NodeTrait;
 
     public function scopeSorted($query) {
-        return $query->orderBy('_lft');
+        return $query->defaultOrder();
     }
 
     public static function boot() {
