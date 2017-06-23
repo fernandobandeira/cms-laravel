@@ -16,7 +16,7 @@
             </div>
 
             <el-table
-                    :data="tableData"
+                    :data="data"
                     stripe
                     v-loading.body="loading"
                     @sort-change="handleSortChange"
@@ -52,44 +52,18 @@
 </template>
 
 <script>
+    import BaseIndex from "./mixins/Index";
+
     export default {
+        mixins: [BaseIndex],
         props: ['nome'],
         data() {
             return {
-                tableData: [],
-                loading: false,
                 currentPage: 1,
-                total: 0,
-                pageSize: 15,
-                order: '',
-                search: '',
-                dialogVisible: false,
-                loadingDelete: false
+                pageSize: 15
             }
         },
         methods: {
-            getData() {
-                let self = this;
-                let query = '';
-
-                this.loading = true;
-
-                query += '?_limit=' + this.pageSize;
-                query += '&_offset=' + ((this.currentPage - 1) * this.pageSize);
-                if(this.order != '') {
-                    query += '&_sort=' + this.order;
-                }
-                if(this.search != '') {
-                    query += '&_q=' + this.search;
-                }
-
-                window.axios.get(window.location.href + query)
-                    .then(function(response) {
-                        self.total = parseInt(response.headers["meta-filter-count"]);
-                        self.loading = false;
-                        self.tableData = response.data;
-                    });
-            },
             handleSizeChange(val) {
                 this.pageSize = val;
                 this.getData();
@@ -107,46 +81,7 @@
                     this.order += sort.prop;
                 }
                 this.getData();
-            },
-            adicionar() {
-                window.location.href = window.location.href + '/novo';
-            },
-            editar(id) {
-                window.location.href = window.location.href + '/' + id + '/editar';
-            },
-            update(data, column) {
-                let self = this;
-                let dados = {};
-                dados[column] = data[column];
-
-                window.axios.put(window.location.href + '/' + data.id, dados)
-                    .then(function(response) {
-                        self.getData();
-                    });
-            },
-            dialog(deletingItem) {
-                this.deletingItem = deletingItem;
-                this.dialogVisible = true;
-            },
-            closeDialog() {
-                this.deletingItem = '';
-                this.dialogVisible = false;
-            },
-            destroy() {
-                let self = this;
-                this.loadingDelete = true;
-
-                window.axios.delete(window.location.href + '/' + this.deletingItem)
-                    .then(function(response) {
-                        self.deletingItem = '';
-                        self.dialogVisible = false;
-                        self.loadingDelete = false;
-                        self.getData();
-                    });
             }
-        },
-        created: function() {
-            this.getData();
         }
     }
 </script>

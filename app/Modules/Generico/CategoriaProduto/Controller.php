@@ -10,6 +10,7 @@ class Controller extends BaseController
 {
     use RestTrait, NestedTrait {
         NestedTrait::applyScopes insteadof RestTrait;
+        NestedTrait::formatReturn insteadof RestTrait;
     }
 
     protected $baseView = 'modules.generico.categoriaproduto';

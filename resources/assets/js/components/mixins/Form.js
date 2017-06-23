@@ -7,6 +7,7 @@ export default {
             loadingForm: true,
             update: false,
             data: {},
+            nome: '',
             editorOptions: window.editorOptions
         }
     },
@@ -24,7 +25,7 @@ export default {
             } else {
                 window.axios.post(this.url, this.form)
                     .then(function(response) {
-                        window.location.href = self.url + '/' + response.data.id + '/editar';
+                        window.location.href = self.url;
                     });
             }
         },
@@ -37,8 +38,12 @@ export default {
                         self.form[k] = response.data[k];
                     });
 
+                    self.afterLoad();
                     self.loadingForm = false;
                 });
+        },
+        afterLoad() {
+
         }
     },
     created() {
@@ -46,9 +51,11 @@ export default {
         if (this.url.indexOf('/editar') != -1) {
             this.url = window.location.href.replace('/editar', '');
             this.update = true;
+            this.nome = 'Editando ';
             this.getData();
         } else {
             this.loadingForm = false;
+            this.nome = 'Novo ';
             this.url = window.location.href.replace('/novo', '');
         }
     }

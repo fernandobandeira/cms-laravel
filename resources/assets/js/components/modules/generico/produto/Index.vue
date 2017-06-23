@@ -21,7 +21,7 @@
                     prop="nome"
                     label="Nome">
                 <template scope="scope">
-                    <a @click="parent.editar(scope.row.id)">{{scope.row.nome}}</a>
+                    <span class="link" @click="parent.editar(scope.row.id)">{{scope.row.nome}}</span>
                 </template>
             </el-table-column>
             <el-table-column

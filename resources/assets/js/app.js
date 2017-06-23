@@ -18,15 +18,18 @@ import Navbar from './components/Navbar.vue';
 import Sidenav from './components/Sidenav.vue';
 import Gerenciadores from './components/Gerenciadores.vue';
 import Datatable from './components/Datatable.vue';
+import Tree from './components/Tree.vue';
+import NestedSelect from './components/NestedSelect.vue';
 
 window.axios = Axios;
+window.vue = Vue;
 
 locale.use(lang);
 Vue.use(ElementUI);
 
 import './tinymce';
-import TinyMCE from 'tinymce-vue-2';
-Vue.component('tinymce', TinyMCE);
+import VueTinymce from 'vue-tinymce';
+Vue.use(VueTinymce);
 
 Vue.component('login', Login);
 Vue.component('navbar', Navbar);
@@ -34,6 +37,8 @@ Vue.component('sidenav', Sidenav);
 Vue.component('gerenciadores', Gerenciadores);
 Vue.component('datatable', Datatable);
 Vue.component('layout', Layout);
+Vue.component('tree', Tree);
+Vue.component('nestedselect', NestedSelect);
 
 import GenericoProdutoIndex from './components/modules/generico/produto/Index.vue';
 import GenericoProdutoForm from './components/modules/generico/produto/Form.vue';

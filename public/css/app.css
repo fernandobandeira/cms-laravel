@@ -496,3 +496,19 @@ body {
 #app .fr {
   float: right;
 }
+#app a:focus,
+#app a:active,
+#app .link:focus,
+#app .link:active {
+  outline: none;
+}
+#app a,
+#app a:focus,
+#app a:hover,
+#app .link,
+#app .link:focus,
+#app .link:hover {
+  cursor: pointer;
+  color: #00f;
+  text-decoration: none;
+}

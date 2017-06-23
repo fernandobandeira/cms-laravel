@@ -1,41 +1,43 @@
 <template>
-    <div class="form">
-        <v-card>
-            <v-card-title>
-                Novo Produto
-            </v-card-title>
-            <v-layout row>
-                <v-flex xs10 offset-xs1 v-if="!loadingForm">
-                    <v-switch label="Ativo" v-model="form.ativo" dark></v-switch>
-                    <v-switch label="Disponível" v-model="form.disponivel" dark></v-switch>
-                    <v-switch label="Destaque" v-model="form.destaque" dark></v-switch>
-                    <v-text-field
-                            v-model="form.referencia"
-                            label="Referência"
-                    ></v-text-field>
-                    <v-text-field
-                            v-model="form.nome"
-                            label="Nome"
-                    ></v-text-field>
-                    <span>Descrição</span>
-                    <tinymce id="descricao" v-model="form.descricao" :other-props="editorOptions"></tinymce>
-                    <v-btn
-                            class="saveButton"
-                            light
-                            :loading="loading"
-                            @click.native="onSubmit"
-                            :disabled="loading"
-                            secondary>
-                        Salvar
-                        <v-icon right light>save</v-icon>
-                    </v-btn>
-                </v-flex>
-                <v-flex xs12 class="text-xs-center" v-if="loadingForm">
-                    <v-progress-circular indeterminate class="primary--text" size="50"></v-progress-circular>
-                </v-flex>
-            </v-layout>
-        </v-card>
-    </div>
+    <el-card class="box-card">
+        <div slot="header" class="clearfix">
+            <span style="line-height: 36px;">{{nome}} Produto</span>
+            <el-button size="small" type="primary" icon="check" class="fr" @click="onSubmit" :loading="loading">Salvar</el-button>
+        </div>
+        <el-form ref="form" :model="form" label-width="120px" v-loading.fullscreen="loadingForm" element-loading-text="Carregando...">
+            <el-form-item label="Ativo">
+                <el-switch on-text="" off-text="" v-model="form.ativo"></el-switch>
+            </el-form-item>
+            <el-form-item label="Disponível">
+                <el-switch on-text="" off-text="" v-model="form.disponivel"></el-switch>
+            </el-form-item>
+            <el-form-item label="Destaque">
+                <el-switch on-text="" off-text="" v-model="form.destaque"></el-switch>
+            </el-form-item>
+            <el-form-item>
+                <el-col :span="12">
+                    <el-input placeholder="Referência" v-model="form.referencia"></el-input>
+                </el-col>
+            </el-form-item>
+            <el-form-item>
+                <el-col :span="12">
+                    <el-input placeholder="Nome" v-model="form.nome"></el-input>
+                </el-col>
+            </el-form-item>
+            <el-form-item>
+                <el-col :span="12">
+                    <el-select v-model="form.categorias" filterable multiple placeholder="Categorias">
+                        <nestedselect :item="categoria" :key="categoria[selectConfig.key]" v-for="categoria in categorias" :config="selectConfig"></nestedselect>
+                    </el-select>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="Descrição">
+                <el-col :span="24">
+                    <tinymce id="tinymce" v-model="form.descricao" :options="editorOptions" :content="descricao"></tinymce>
+                </el-col>
+            </el-form-item>
+        </el-form>
+    </el-card>
 </template>
 
 <script>
@@ -52,8 +54,29 @@
                     referencia: '',
                     nome: '',
                     descricao: '',
+                    categorias : []
                 },
+                categorias: [],
+                descricao: '',
+                selectConfig: {
+                    key: 'id',
+                    label: 'nome',
+                    value: 'id'
+                }
             }
+        },
+        methods: {
+            afterLoad() {
+                this.descricao = this.form.descricao;
+            }
+        },
+        created() {
+            let self = this;
+
+            window.axios.get('/categoriasprodutos')
+                .then(function(response) {
+                    self.categorias = response.data;
+                });
         }
     }
 </script>

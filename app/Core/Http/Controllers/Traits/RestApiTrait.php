@@ -18,7 +18,7 @@ trait RestApiTrait
         $retorno = ApiHandler::parseMultiple($model, $this->model::$search);
 
         return response()->json(
-            $this->transformer::transform($retorno->getResult()),
+            $this->formatReturn($retorno->getResult()),
             200,
             $retorno->getHeaders());
     }
@@ -28,7 +28,7 @@ trait RestApiTrait
         $model = $this->model::create($this->request->all());
         $model = $this->refresh($model);
 
-        return response()->json($this->transformer::transform($model), 201);
+        return response()->json($this->formatReturn($model), 201);
     }
 
     public function update(Model $model) {
@@ -39,12 +39,13 @@ trait RestApiTrait
         $model->update($this->request->except('ordem'));
         $model = $this->refresh($model);
 
-        return response()->json($this->transformer::transform($model), 200);
+        return response()->json($this->formatReturn($model), 200);
     }
 
     public function show(Model $model) {
         $model = $this->refresh($model);
-        return response()->json($this->transformer::transform($model), 200);
+
+        return response()->json($this->formatReturn($model), 200);
     }
 
     public function destroy(Model $model) {
@@ -85,6 +86,10 @@ trait RestApiTrait
 
     public function applyScopes($model) {
         return $model;
+    }
+
+    public function formatReturn($return) {
+        return $this->transformer::transform($return);
     }
 
     public function refresh($model) {

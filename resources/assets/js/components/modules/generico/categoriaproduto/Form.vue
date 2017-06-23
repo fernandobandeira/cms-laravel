@@ -1,49 +1,27 @@
 <template>
-    <div class="form">
-        <v-card>
-            <v-card-title>
-                Nova Categoria
-            </v-card-title>
-            <v-layout row>
-                <v-flex xs10 offset-xs1 v-if="!loadingForm">
-                    <v-switch label="Ativo" v-model="form.ativo" dark></v-switch>
-                    <v-text-field
-                            v-model="form.nome"
-                            label="Nome"
-                    ></v-text-field>
-                    <v-select
-                            :items="categorias"
-                            v-model="form.parent_id"
-                            label="Categoria Pai"
-                            item-text="nome"
-                            item-value="id"
-                            dark
-                            single-line
-                            auto
-                    >
-                        <template slot="item" scope="data">
-                            <v-list-tile-content>
-                                <v-list-tile-title v-html="data.item.nome"></v-list-tile-title>
-                            </v-list-tile-content>
-                        </template>
-                    </v-select>
-                    <v-btn
-                            class="saveButton"
-                            light
-                            :loading="loading"
-                            @click.native="onSubmit"
-                            :disabled="loading"
-                            secondary>
-                        Salvar
-                        <v-icon right light>save</v-icon>
-                    </v-btn>
-                </v-flex>
-                <v-flex xs12 class="text-xs-center" v-if="loadingForm">
-                    <v-progress-circular indeterminate class="primary--text" size="50"></v-progress-circular>
-                </v-flex>
-            </v-layout>
-        </v-card>
-    </div>
+    <el-card class="box-card">
+        <div slot="header" class="clearfix">
+            <span style="line-height: 36px;">{{nome}} Categoria de Produto</span>
+            <el-button size="small" type="primary" icon="check" class="fr" @click="onSubmit" :loading="loading">Salvar</el-button>
+        </div>
+        <el-form ref="form" :model="form" label-width="120px" v-loading.fullscreen="loadingForm" element-loading-text="Carregando...">
+            <el-form-item label="Ativo">
+                <el-switch on-text="" off-text="" v-model="form.ativo"></el-switch>
+            </el-form-item>
+            <el-form-item>
+                <el-col :span="12">
+                    <el-input placeholder="Nome" v-model="form.nome"></el-input>
+                </el-col>
+            </el-form-item>
+            <el-form-item>
+                <el-col :span="12">
+                    <el-select v-model="form.parent_id" clearable filterable placeholder="Categoria Pai">
+                        <nestedselect :item="categoria" :key="categoria[selectConfig.key]" v-for="categoria in categorias" :config="selectConfig"></nestedselect>
+                    </el-select>
+                </el-col>
+            </el-form-item>
+        </el-form>
+    </el-card>
 </template>
 
 <script>
@@ -58,7 +36,12 @@
                     nome: '',
                     parent_id: null,
                 },
-                categorias: []
+                categorias: [],
+                selectConfig: {
+                    key: 'id',
+                    label: 'nome',
+                    value: 'id'
+                }
             }
         },
         created() {

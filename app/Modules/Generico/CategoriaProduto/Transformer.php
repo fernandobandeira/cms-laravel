@@ -15,8 +15,13 @@ class Transformer extends AbstractTransformer
             'nome' => $item->nome,
             'slug' => $item->slug,
             'parent_id' => $item->parent_id,
-            'depth' => $item->depth
+            'depth' => $item->depth,
+            'children' => null,
         ];
+
+        if (!is_null($item->children) && !empty($item->children->first())) {
+            $output['children'] = static::transform($item->children);
+        }
 
         return $output;
     }
