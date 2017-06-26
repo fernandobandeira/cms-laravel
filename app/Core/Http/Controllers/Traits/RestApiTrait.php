@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 trait RestApiTrait
 {
-    public function index()
+    public function list()
     {
         $this->request->merge(['_config' => 'meta-total-count,meta-filter-count']);
 
@@ -25,7 +25,16 @@ trait RestApiTrait
 
     public function store()
     {
-        $model = $this->model::create($this->request->all());
+        $relationships = $this->model::getMTMRelations();
+
+        $model = $this->model::create($this->request->except($relationships));
+
+        foreach($relationships as $relationship) {
+            if($this->request->has($relationship)) {
+                $model->{$relationship}()->sync($this->request->{$relationship});
+            }
+        }
+
         $model = $this->refresh($model);
 
         return response()->json($this->formatReturn($model), 201);
@@ -36,7 +45,18 @@ trait RestApiTrait
             $this->reorder($model, $this->request->ordem);
             $model->refresh();
         }
-        $model->update($this->request->except('ordem'));
+
+        $relationships = $this->model::getMTMRelations();
+        $relationships[] = 'ordem';
+
+        $model->update($this->request->except($relationships));
+
+        foreach($relationships as $relationship) {
+            if($this->request->has($relationship)) {
+                $model->{$relationship}()->sync($this->request->{$relationship});
+            }
+        }
+
         $model = $this->refresh($model);
 
         return response()->json($this->formatReturn($model), 200);

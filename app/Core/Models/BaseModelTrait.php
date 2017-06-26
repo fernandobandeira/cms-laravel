@@ -4,18 +4,14 @@ namespace App\Core\Models;
 
 use Uuid;
 use Watson\Validating\ValidatingTrait;
-use Illuminate\Database\Eloquent\Model;
 
-abstract class BaseModel extends Model
+trait BaseModelTrait
 {
     use ValidatingTrait;
 
-    protected $throwValidationExceptions = true;
-    protected $observables = ['validating'];
+    protected $throwValidationExceptions = true;    
     public static $search = [];
     protected $rules;
-    protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
-    public $incrementing = false;
 
     public function sluggable()
     {
@@ -26,7 +22,7 @@ abstract class BaseModel extends Model
         ];
     }
 
-    public static function boot() {
+    public static function bootBaseModelTrait() {
         self::bootValidatingTrait();
 
         $uses = class_uses(new static);
@@ -40,5 +36,23 @@ abstract class BaseModel extends Model
                 $model->id = Uuid::generate(4);
             }
         });
+    }
+
+    public static function getMTMRelations()
+    {
+        $relations = [];
+        $reflextionClass = new \ReflectionClass(get_called_class());
+
+        foreach($reflextionClass->getMethods() as $method)
+        {
+            $doc = $method->getDocComment();
+
+            if($doc && strpos($doc, '@ManyToMany') !== false)
+            {
+                $relations[] = $method->getName();
+            }
+        }
+
+        return $relations;
     }
 }

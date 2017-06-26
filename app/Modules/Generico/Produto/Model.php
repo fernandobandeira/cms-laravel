@@ -20,4 +20,12 @@ class Model extends BaseModel
     protected $rules = [
         'nome'   => 'required',
     ];
+
+    /**
+     * @Relation
+     * @ManyToMany
+     */
+    public function categorias() {
+        return $this->belongsToMany('App\Modules\Generico\CategoriaProduto\Model', 'categorias_produtos_produtos', 'produto_id', 'categoria_produto_id');
+    }
 }

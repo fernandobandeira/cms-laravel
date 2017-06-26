@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <div>    
         <el-option
                 :key="item[config.key]"
                 :label="label"
                 :value="item[config.value]">
         </el-option>
-        <template v-if="item.children != null">
-            <nestedselect :key="child[config.key]" v-for="child in item.children" :item="child" :config="config"></nestedselect>
+        <template v-if="item.filhas != null">
+            <nestedselect :key="child[config.key]" v-for="child in item.filhas" :item="child" :config="config"></nestedselect>
         </template>
     </div>
 </template>

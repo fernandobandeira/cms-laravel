@@ -7,28 +7,36 @@ export default {
             total: 0,
             pageSize: 0,
             order: '',
-            search: '',
+            search: '',                    
             dialogVisible: false,
-            loadingDelete: false
+            loadingDelete: false                
         }
     },
     methods: {
         getData() {
             let self = this;
             let query = '';
+            let url = this.url;
 
             this.loading = true;
 
-            query += '?_limit=' + this.pageSize;
-            query += '&_offset=' + ((this.currentPage - 1) * this.pageSize);
+            if (this.pageSize != 0) {                
+                url = window.helpers.addParameter(url, '_limit', this.pageSize);                
+                url = window.helpers.addParameter(url, '_offset', ((this.currentPage - 1) * this.pageSize));
+            }
             if(this.order != '') {
-                query += '&_sort=' + this.order;
+                url = window.helpers.addParameter(url, '_sort', this.order);                
             }
             if(this.search != '') {
-                query += '&_q=' + this.search;
+                url = window.helpers.addParameter(url, '_q', this.search);
+            }
+            if (this.customParams != '') {
+                for(var key in this.customParams) {                    
+                    url = window.helpers.addParameter(url, key, this.customParams[key]);                   
+                }                
             }
 
-            window.axios.get(window.location.href + query)
+            window.axios.get(url)
                 .then(function(response) {
                     self.total = parseInt(response.headers["meta-filter-count"]);
                     self.loading = false;
@@ -46,7 +54,7 @@ export default {
             let dados = {};
             dados[column] = data[column];
 
-            window.axios.put(window.location.href + '/' + data.id, dados)
+            window.axios.put(this.url + '/' + data.id, dados)
                 .then(function(response) {
                     self.getData();
                 });
@@ -63,7 +71,7 @@ export default {
             let self = this;
             this.loadingDelete = true;
 
-            window.axios.delete(window.location.href + '/' + this.deletingItem)
+            window.axios.delete(this.url + '/' + this.deletingItem)
                 .then(function(response) {
                     self.deletingItem = '';
                     self.dialogVisible = false;

@@ -37,6 +37,7 @@
                     parent_id: null,
                 },
                 categorias: [],
+                url: '/api/categoriasprodutos',
                 selectConfig: {
                     key: 'id',
                     label: 'nome',
@@ -47,7 +48,7 @@
         created() {
             let self = this;
 
-            window.axios.get('/categoriasprodutos')
+            window.axios.get('/api/categoriasprodutos?_with=filhas&depth=0')
                 .then(function(response) {
                     self.categorias = response.data;
                 });

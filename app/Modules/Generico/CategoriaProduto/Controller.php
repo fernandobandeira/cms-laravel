@@ -3,15 +3,11 @@
 namespace App\Modules\Generico\CategoriaProduto;
 
 use App\Core\Http\Controllers\Traits\RestTrait;
-use App\Core\Http\Controllers\Traits\NestedTrait;
 use App\Core\Http\Controllers\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    use RestTrait, NestedTrait {
-        NestedTrait::applyScopes insteadof RestTrait;
-        NestedTrait::formatReturn insteadof RestTrait;
-    }
+    use RestTrait;
 
     protected $baseView = 'modules.generico.categoriaproduto';
 

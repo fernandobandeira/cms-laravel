@@ -4,6 +4,7 @@ namespace App\Modules\Generico\CategoriaProduto;
 
 use Illuminate\Database\Eloquent\Model;
 use Themsaid\Transformers\AbstractTransformer;
+use App\Modules\Generico\Produto\Transformer as ProdutoTransformer;
 
 class Transformer extends AbstractTransformer
 {
@@ -16,11 +17,16 @@ class Transformer extends AbstractTransformer
             'slug' => $item->slug,
             'parent_id' => $item->parent_id,
             'depth' => $item->depth,
-            'children' => null,
         ];
 
-        if (!is_null($item->children) && !empty($item->children->first())) {
-            $output['children'] = static::transform($item->children);
+        $relations = array_keys($item->relationsToArray());
+
+        if ($this->isRelationshipLoaded($item, 'filhas')) {
+            $output['filhas'] = static::transform($item->filhas()->with($relations)->get());
+        }
+
+        if ($this->isRelationshipLoaded($item, 'produtos')) {
+            $output['produtos'] = ProdutoTransformer::transform($item->produtos);
         }
 
         return $output;

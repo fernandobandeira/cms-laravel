@@ -56,7 +56,7 @@
 
     export default {
         mixins: [BaseIndex],
-        props: ['nome'],
+        props: ['nome', 'url', 'customParams'],
         data() {
             return {
                 currentPage: 1,

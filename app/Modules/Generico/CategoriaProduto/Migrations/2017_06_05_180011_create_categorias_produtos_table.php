@@ -19,9 +19,12 @@ class CreateCategoriasProdutosTable extends Migration
                 $table->boolean('ativo')->nullable()->default(false);
                 $table->string('nome', 150);
                 $table->string('slug', 150)->nullable();
-                $table->unsignedInteger('_lft');
-                $table->unsignedInteger('_rgt');
+
                 $table->uuid('parent_id')->nullable();
+                $table->unsignedInteger('lft')->nullable();
+                $table->unsignedInteger('rgt')->nullable();
+                $table->unsignedInteger('depth')->nullable();
+
                 $table->softDeletes();
                 $table->timestamps();
 

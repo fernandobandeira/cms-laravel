@@ -12177,12 +12177,13 @@ exports.default = {
     data: function data() {
         return {
             form: {},
-            url: '',
             loading: false,
             loadingForm: true,
             update: false,
             data: {},
             nome: '',
+            url: '',
+            customParams: {},
             editorOptions: window.editorOptions
         };
     },
@@ -12193,22 +12194,29 @@ exports.default = {
             this.loading = true;
 
             if (this.update == true) {
-                window.axios.put(this.url, this.form).then(function (response) {
+                window.axios.put(this.url + '/' + this.customParams.id, this.form).then(function (response) {
                     self.url = self.url.replace('/' + response.data.id, '');
-                    window.location.href = self.url;
+                    window.location.href = window.location.href.replace('/editar', '').replace('/' + self.customParams.id, '');
                 });
             } else {
                 window.axios.post(this.url, this.form).then(function (response) {
-                    window.location.href = self.url;
+                    window.location.href = window.location.href.replace('/novo', '');
                 });
             }
         },
         getData: function getData() {
             var self = this;
+            var url = this.url;
 
-            window.axios.get(this.url).then(function (response) {
+            if (this.customParams != '') {
+                for (var key in this.customParams) {
+                    url = window.helpers.addParameter(url, key, this.customParams[key]);
+                }
+            }
+
+            window.axios.get(url).then(function (response) {
                 Object.keys(self.form).forEach(function (k) {
-                    self.form[k] = response.data[k];
+                    self.form[k] = response.data[0][k];
                 });
 
                 self.afterLoad();
@@ -12218,16 +12226,17 @@ exports.default = {
         afterLoad: function afterLoad() {}
     },
     created: function created() {
-        this.url = window.location.href;
-        if (this.url.indexOf('/editar') != -1) {
-            this.url = window.location.href.replace('/editar', '');
+        var url = window.location.href;
+        if (url.indexOf('/editar') != -1) {
+            url = url.replace('/editar', '');
+
             this.update = true;
             this.nome = 'Editando ';
+            this.customParams.id = url.substr(url.lastIndexOf('/') + 1);
             this.getData();
         } else {
             this.loadingForm = false;
-            this.nome = 'Novo ';
-            this.url = window.location.href.replace('/novo', '');
+            this.nome = 'Adicionando ';
         }
     }
 };
@@ -12261,19 +12270,27 @@ exports.default = {
         getData: function getData() {
             var self = this;
             var query = '';
+            var url = this.url;
 
             this.loading = true;
 
-            query += '?_limit=' + this.pageSize;
-            query += '&_offset=' + (this.currentPage - 1) * this.pageSize;
+            if (this.pageSize != 0) {
+                url = window.helpers.addParameter(url, '_limit', this.pageSize);
+                url = window.helpers.addParameter(url, '_offset', (this.currentPage - 1) * this.pageSize);
+            }
             if (this.order != '') {
-                query += '&_sort=' + this.order;
+                url = window.helpers.addParameter(url, '_sort', this.order);
             }
             if (this.search != '') {
-                query += '&_q=' + this.search;
+                url = window.helpers.addParameter(url, '_q', this.search);
+            }
+            if (this.customParams != '') {
+                for (var key in this.customParams) {
+                    url = window.helpers.addParameter(url, key, this.customParams[key]);
+                }
             }
 
-            window.axios.get(window.location.href + query).then(function (response) {
+            window.axios.get(url).then(function (response) {
                 self.total = parseInt(response.headers["meta-filter-count"]);
                 self.loading = false;
                 self.data = response.data;
@@ -12290,7 +12307,7 @@ exports.default = {
             var dados = {};
             dados[column] = data[column];
 
-            window.axios.put(window.location.href + '/' + data.id, dados).then(function (response) {
+            window.axios.put(this.url + '/' + data.id, dados).then(function (response) {
                 self.getData();
             });
         },
@@ -12306,7 +12323,7 @@ exports.default = {
             var self = this;
             this.loadingDelete = true;
 
-            window.axios.delete(window.location.href + '/' + this.deletingItem).then(function (response) {
+            window.axios.delete(this.url + '/' + this.deletingItem).then(function (response) {
                 self.deletingItem = '';
                 self.dialogVisible = false;
                 self.loadingDelete = false;
@@ -13799,6 +13816,10 @@ var _NestedSelect2 = _interopRequireDefault(_NestedSelect);
 
 __webpack_require__(87);
 
+var _helpers = __webpack_require__(156);
+
+var _helpers2 = _interopRequireDefault(_helpers);
+
 var _vueTinymce = __webpack_require__(152);
 
 var _vueTinymce2 = _interopRequireDefault(_vueTinymce);
@@ -13834,6 +13855,7 @@ _locale2.default.use(_ptBr2.default);
 _vue2.default.use(_elementUi2.default);
 
 _vue2.default.use(_vueTinymce2.default);
+window.helpers = _helpers2.default;
 
 _vue2.default.component('login', _Login2.default);
 _vue2.default.component('navbar', _Navbar2.default);
@@ -16051,7 +16073,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
     mixins: [_Index2.default],
-    props: ['nome'],
+    props: ['nome', 'url', 'customParams'],
     data: function data() {
         return {
             currentPage: 1,
@@ -16482,7 +16504,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
     mixins: [_Index2.default],
-    props: ['nome', 'defaultProps'],
+    props: ['nome', 'defaultProps', 'url', 'customParams'],
+    data: function data() {
+        return {
+            filterText: ''
+        };
+    },
+
     watch: {
         filterText: function filterText(val) {
             this.$refs.tree.filter(val);
@@ -16493,6 +16521,9 @@ exports.default = {
             if (!value) return true;
             return data.nome.indexOf(value) !== -1;
         },
+        nodeClick: function nodeClick(node) {
+            this.editar(node.id);
+        },
         renderContent: function renderContent(h, _ref) {
             var _this = this;
 
@@ -16500,30 +16531,6 @@ exports.default = {
                 data = _ref.data,
                 store = _ref.store;
 
-            /*
-            let html = h('span', {}, [
-                h('a', {
-                    domProps: {
-                        innerHTML: node.label
-                    },
-                    nativeOn: {
-                        click: 'editar("' + node.id + '")'
-                    }
-                }),
-                h('el-button', {
-                    props: {
-                        icon: 'delete',
-                        size: 'small'
-                    },
-                    domProps: {
-                        style: 'float: right; margin-right: 20px;margin-top: 4px;'
-                    },
-                    on: {
-                        click: 'dialog("' + node.id + '")'
-                    }
-                })
-            ]);
-             return html;*/
             return h(
                 'span',
                 null,
@@ -16557,15 +16564,7 @@ exports.default = {
                     )]
                 )]
             );
-        },
-        nodeClick: function nodeClick(node) {
-            this.editar(node.id);
         }
-    },
-    data: function data() {
-        return {
-            filterText: ''
-        };
     }
 }; //
 //
@@ -16634,6 +16633,7 @@ exports.default = {
                 parent_id: null
             },
             categorias: [],
+            url: '/api/categoriasprodutos',
             selectConfig: {
                 key: 'id',
                 label: 'nome',
@@ -16644,7 +16644,7 @@ exports.default = {
     created: function created() {
         var self = this;
 
-        window.axios.get('/categoriasprodutos').then(function (response) {
+        window.axios.get('/api/categoriasprodutos?_with=filhas&depth=0').then(function (response) {
             self.categorias = response.data;
         });
     }
@@ -16694,8 +16694,12 @@ exports.default = {
     data: function data() {
         return {
             defaultProps: {
-                children: 'children',
+                children: 'filhas',
                 label: 'nome'
+            },
+            customParams: {
+                _with: 'filhas',
+                depth: 0
             }
         };
     }
@@ -16737,19 +16741,29 @@ exports.default = {
                 key: 'id',
                 label: 'nome',
                 value: 'id'
+            },
+            url: '/api/produtos',
+            customParams: {
+                _with: 'categorias'
             }
         };
     },
 
     methods: {
         afterLoad: function afterLoad() {
+            var categorias = [];
+
             this.descricao = this.form.descricao;
+            for (var i = 0; i < this.form.categorias.length; i++) {
+                categorias.push(this.form.categorias[i].id);
+            }
+            this.form.categorias = categorias;
         }
     },
     created: function created() {
         var self = this;
 
-        window.axios.get('/categoriasprodutos').then(function (response) {
+        window.axios.get('/api/categoriasprodutos?_with=filhas&depth=0').then(function (response) {
             self.categorias = response.data;
         });
     }
@@ -119617,7 +119631,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(3)(
   /* script */
-  null,
+  __webpack_require__(157),
   /* template */
   __webpack_require__(151),
   /* scopeId */
@@ -119697,7 +119711,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('tree', {
     attrs: {
       "nome": "Listagem de Categorias de Produtos",
-      "defaultProps": _vm.defaultProps
+      "defaultProps": _vm.defaultProps,
+      "url": "/api/categoriasprodutos",
+      "customParams": _vm.customParams
     }
   })
 },staticRenderFns: []}
@@ -119998,7 +120014,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": _vm.label,
       "value": _vm.item[_vm.config.value]
     }
-  }), _vm._v(" "), (_vm.item.children != null) ? _vm._l((_vm.item.children), function(child) {
+  }), _vm._v(" "), (_vm.item.filhas != null) ? _vm._l((_vm.item.filhas), function(child) {
     return _c('nestedselect', {
       key: child[_vm.config.key],
       attrs: {
@@ -120532,7 +120548,9 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('datatable', {
     attrs: {
-      "nome": "Listagem de Produtos"
+      "nome": "Listagem de Produtos",
+      "url": "/api/produtos",
+      "customParams": _vm.customParams
     },
     scopedSlots: _vm._u([{
       key: "colunas",
@@ -120591,6 +120609,35 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                   }
                 }
               }, [_vm._v(_vm._s(scope.row.nome))])]
+            }
+          }])
+        }), _vm._v(" "), _c('el-table-column', {
+          attrs: {
+            "prop": "categorias",
+            "label": "Categorias",
+            "width": "140",
+            "filters": [{
+              text: 'Home',
+              value: 'Home'
+            }, {
+              text: 'Office',
+              value: 'Office'
+            }],
+            "filter-method": _vm.filterTag,
+            "filter-placement": "bottom-end"
+          },
+          scopedSlots: _vm._u([{
+            key: "default",
+            fn: function(scope) {
+              return _vm._l((scope.row.categorias), function(categoria) {
+                return _c('el-tag', {
+                  key: categoria.id,
+                  attrs: {
+                    "type": "primary",
+                    "close-transition": ""
+                  }
+                }, [_vm._v("\n                    " + _vm._s(categoria.nome) + "\n                ")])
+              })
             }
           }])
         }), _vm._v(" "), _c('el-table-column', {
@@ -120738,6 +120785,172 @@ if(e.outerHTML)return e.outerHTML;var t=document.createElement("div");return t.a
 __webpack_require__(34);
 module.exports = __webpack_require__(35);
 
+
+/***/ }),
+/* 154 */,
+/* 155 */,
+/* 156 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    addParameter: function addParameter(url, parameterName, parameterValue) {
+        var atStart = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+        var replaceDuplicates = true;
+        if (url.indexOf('#') > 0) {
+            var cl = url.indexOf('#');
+            var urlhash = url.substring(url.indexOf('#'), url.length);
+        } else {
+            var urlhash = '';
+            cl = url.length;
+        }
+        var sourceUrl = url.substring(0, cl);
+
+        var urlParts = sourceUrl.split("?");
+        var newQueryString = "";
+
+        if (urlParts.length > 1) {
+            var parameters = urlParts[1].split("&");
+            for (var i = 0; i < parameters.length; i++) {
+                var parameterParts = parameters[i].split("=");
+                if (!(replaceDuplicates && parameterParts[0] == parameterName)) {
+                    if (newQueryString == "") newQueryString = "?";else newQueryString += "&";
+                    newQueryString += parameterParts[0] + "=" + (parameterParts[1] ? parameterParts[1] : '');
+                }
+            }
+        }
+        if (newQueryString == "") newQueryString = "?";
+
+        if (atStart) {
+            newQueryString = '?' + parameterName + "=" + parameterValue + (newQueryString.length > 1 ? '&' + newQueryString.substring(1) : '');
+        } else {
+            if (newQueryString !== "" && newQueryString != '?') newQueryString += "&";
+            newQueryString += parameterName + "=" + (parameterValue ? parameterValue : '');
+        }
+        return urlParts[0] + newQueryString + urlhash;
+    }
+};
+
+/***/ }),
+/* 157 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    data: function data() {
+        return {
+            customParams: {
+                _with: 'categorias'
+            }
+        };
+    }
+};
 
 /***/ })
 /******/ ]);

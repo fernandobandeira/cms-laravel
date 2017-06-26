@@ -2,19 +2,31 @@
 
 namespace App\Core\Models;
 
-use Kalnoy\Nestedset\NodeTrait;
+use Baum\Node;
 
-abstract class NestedModel extends BaseModel
+abstract class NestedModel extends Node
 {
-    use NodeTrait;
+	use BaseModelTrait;
+
+	protected $observables = ['validating'];
+    protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
+    public $incrementing = false;
 
     public function scopeSorted($query) {
-        return $query->defaultOrder();
+        return $query->orderBy('lft');
     }
 
-    public static function boot() {
-        self::bootNodeTrait();
+    /**
+     * @Relation     
+     */
+    public function filhas() {
+    	return $this->immediateDescendants();
+    }
 
-        parent::boot();
+    /**
+     * @Relation     
+     */
+    public function pais() {        
+        return $this->ancestors();
     }
 }

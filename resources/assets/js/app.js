@@ -28,8 +28,10 @@ locale.use(lang);
 Vue.use(ElementUI);
 
 import './tinymce';
+import Helpers from './helpers';
 import VueTinymce from 'vue-tinymce';
 Vue.use(VueTinymce);
+window.helpers = Helpers;
 
 Vue.component('login', Login);
 Vue.component('navbar', Navbar);

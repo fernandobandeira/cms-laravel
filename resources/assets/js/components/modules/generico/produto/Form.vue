@@ -62,18 +62,28 @@
                     key: 'id',
                     label: 'nome',
                     value: 'id'
+                },
+                url: '/api/produtos',
+                customParams: {                    
+                    _with: 'categorias'
                 }
             }
         },
         methods: {
-            afterLoad() {
+            afterLoad() {                
+                let categorias = [];
+
                 this.descricao = this.form.descricao;
+                for(var i=0; i < this.form.categorias.length; i++) {
+                   categorias.push(this.form.categorias[i].id);
+                }
+                this.form.categorias = categorias;
             }
         },
         created() {
             let self = this;
 
-            window.axios.get('/categoriasprodutos')
+            window.axios.get('/api/categoriasprodutos?_with=filhas&depth=0')
                 .then(function(response) {
                     self.categorias = response.data;
                 });

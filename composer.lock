@@ -4,8 +4,63 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "943e3fd81f7bbff9766ca3fcb3e0b64e",
+    "content-hash": "18351cb95fe7f4dc1e21ec8361811c36",
     "packages": [
+        {
+            "name": "baum/baum",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/etrepat/baum.git",
+                "reference": "9290bed862d329aaaef666a71e0a2734afc28286"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/etrepat/baum/zipball/9290bed862d329aaaef666a71e0a2734afc28286",
+                "reference": "9290bed862d329aaaef666a71e0a2734afc28286",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "5.*",
+                "illuminate/database": "5.*",
+                "illuminate/events": "5.*",
+                "illuminate/filesystem": "5.*",
+                "illuminate/support": "5.*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "d11wtq/boris": "~1.0.10",
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Baum": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Estanislau Trepat",
+                    "email": "estanis@etrepat.com",
+                    "homepage": "http://etrepat.com"
+                }
+            ],
+            "description": "Baum is an implementation of the Nested Set pattern for Eloquent models.",
+            "keywords": [
+                "Laravel 4",
+                "database",
+                "eloquent",
+                "laravel",
+                "laravel 5",
+                "nested set"
+            ],
+            "time": "2015-03-04T12:07:54+00:00"
+        },
         {
             "name": "cocur/slugify",
             "version": "v2.5",
@@ -408,71 +463,17 @@
             "time": "2015-04-20T18:58:01+00:00"
         },
         {
-            "name": "kalnoy/nestedset",
-            "version": "v4.2.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lazychaser/laravel-nestedset.git",
-                "reference": "3ca7de50b5a67f97cf424f7ed181ccaba51f2a87"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lazychaser/laravel-nestedset/zipball/3ca7de50b5a67f97cf424f7ed181ccaba51f2a87",
-                "reference": "3ca7de50b5a67f97cf424f7ed181ccaba51f2a87",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "5.2.* | 5.3.* | 5.4.*",
-                "illuminate/events": "5.2.* | 5.3.* | 5.4.*",
-                "illuminate/support": "5.2.* | 5.3.* | 5.4.*",
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.8.*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "v4.2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Kalnoy\\Nestedset\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alexander Kalnoy",
-                    "email": "lazychaser@gmail.com"
-                }
-            ],
-            "description": "Nested Set Model for Laravel 4-5",
-            "keywords": [
-                "database",
-                "hierarchy",
-                "laravel",
-                "nested sets",
-                "nsm"
-            ],
-            "time": "2017-06-10T05:56:15+00:00"
-        },
-        {
             "name": "laravel/framework",
-            "version": "v5.4.25",
+            "version": "v5.4.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "6bcc9b1f542b3deed16d51f6aa1fe318ab407c2a"
+                "reference": "66f5e1b37cbd66e730ea18850ded6dc0ad570404"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6bcc9b1f542b3deed16d51f6aa1fe318ab407c2a",
-                "reference": "6bcc9b1f542b3deed16d51f6aa1fe318ab407c2a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/66f5e1b37cbd66e730ea18850ded6dc0ad570404",
+                "reference": "66f5e1b37cbd66e730ea18850ded6dc0ad570404",
                 "shasum": ""
             },
             "require": {
@@ -588,7 +589,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-06-07T13:35:12+00:00"
+            "time": "2017-06-15T19:08:25+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -790,16 +791,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.22.1",
+            "version": "1.23.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "1e044bc4b34e91743943479f1be7a1d5eb93add0"
+                "reference": "fd8c787753b3a2ad11bc60c063cff1358a32a3b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1e044bc4b34e91743943479f1be7a1d5eb93add0",
-                "reference": "1e044bc4b34e91743943479f1be7a1d5eb93add0",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/fd8c787753b3a2ad11bc60c063cff1358a32a3b4",
+                "reference": "fd8c787753b3a2ad11bc60c063cff1358a32a3b4",
                 "shasum": ""
             },
             "require": {
@@ -820,7 +821,7 @@
                 "phpunit/phpunit-mock-objects": "2.3.0",
                 "ruflin/elastica": ">=0.90 <3.0",
                 "sentry/sentry": "^0.13",
-                "swiftmailer/swiftmailer": "~5.3"
+                "swiftmailer/swiftmailer": "^5.3|^6.0"
             },
             "suggest": {
                 "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
@@ -864,7 +865,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2017-03-13T07:08:03+00:00"
+            "time": "2017-06-19T01:22:40+00:00"
         },
         {
             "name": "mtdowling/cron-expression",
@@ -1292,16 +1293,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.8.6",
+            "version": "v0.8.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "7028d6d525fb183d50b249b7c07598e3d386b27d"
+                "reference": "be969b9dc89dcaefdb9a3117fa91fa38bca19f50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/7028d6d525fb183d50b249b7c07598e3d386b27d",
-                "reference": "7028d6d525fb183d50b249b7c07598e3d386b27d",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/be969b9dc89dcaefdb9a3117fa91fa38bca19f50",
+                "reference": "be969b9dc89dcaefdb9a3117fa91fa38bca19f50",
                 "shasum": ""
             },
             "require": {
@@ -1361,7 +1362,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2017-06-04T10:34:20+00:00"
+            "time": "2017-06-20T12:51:31+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -3263,16 +3264,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.7.20",
+            "version": "5.7.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3cb94a5f8c07a03c8b7527ed7468a2926203f58b"
+                "reference": "3b91adfb64264ddec5a2dee9851f354aa66327db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3cb94a5f8c07a03c8b7527ed7468a2926203f58b",
-                "reference": "3cb94a5f8c07a03c8b7527ed7468a2926203f58b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3b91adfb64264ddec5a2dee9851f354aa66327db",
+                "reference": "3b91adfb64264ddec5a2dee9851f354aa66327db",
                 "shasum": ""
             },
             "require": {
@@ -3341,7 +3342,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-05-22T07:42:55+00:00"
+            "time": "2017-06-21T08:11:54+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

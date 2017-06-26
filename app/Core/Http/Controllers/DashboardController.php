@@ -14,7 +14,7 @@ class DashboardController extends Controller
 
     public function modulos()
     {
-        $modulos = Modulo::All();
+        $modulos = Projeto::$tenant->modulos;
         $modulos->map(function ($item) {
             $item->rota = route(strtolower($item->modulo . '.index'));
         });

@@ -1,5 +1,5 @@
 <template>
-    <datatable nome="Listagem de Produtos">
+    <datatable nome="Listagem de Produtos" url="/api/produtos" :customParams="customParams">
         <template slot="colunas" scope="parent">
             <el-table-column
                     sortable="custom"
@@ -22,6 +22,23 @@
                     label="Nome">
                 <template scope="scope">
                     <span class="link" @click="parent.editar(scope.row.id)">{{scope.row.nome}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                prop="categorias"
+                label="Categorias"
+                width="140"
+                :filters="[{ text: 'Home', value: 'Home' }, { text: 'Office', value: 'Office' }]"
+                :filter-method="filterTag"
+                filter-placement="bottom-end">
+                <template scope="scope">
+                    <el-tag
+                    v-for="categoria in scope.row.categorias"
+                    :key="categoria.id"
+                    type="primary"
+                    close-transition>
+                        {{categoria.nome}}
+                    </el-tag>
                 </template>
             </el-table-column>
             <el-table-column
@@ -74,3 +91,15 @@
         </template>
     </datatable>
 </template>
+
+<script>
+    export default {
+        data() {
+            return {
+                customParams: {
+                    _with: 'categorias'
+                }
+            }
+        }
+    }
+</script>

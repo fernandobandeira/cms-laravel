@@ -4,6 +4,7 @@ namespace App\Modules\Generico\Produto;
 
 use Illuminate\Database\Eloquent\Model;
 use Themsaid\Transformers\AbstractTransformer;
+use App\Modules\Generico\CategoriaProduto\Transformer as CategoriaProdutoTransformer;
 
 class Transformer extends AbstractTransformer
 {
@@ -21,6 +22,10 @@ class Transformer extends AbstractTransformer
             'ordem' => $item->ordem,
             'created_at' => $item->created_at,
         ];
+
+        if ($this->isRelationshipLoaded($item, 'categorias')) {
+            $output['categorias'] = CategoriaProdutoTransformer::transform($item->categorias);
+        }
 
         return $output;
     }

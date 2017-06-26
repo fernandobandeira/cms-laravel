@@ -18,4 +18,12 @@ class Model extends NestedModel
     protected $rules = [
         'nome'   => 'required',
     ];
+
+    /**
+     * @Relation
+     * @ManyToMany
+     */
+    public function produtos() {
+        return $this->belongsToMany('App\Modules\Generico\Produto\Model', 'categorias_produtos_produtos', 'categoria_produto_id', 'produto_id');
+    }
 }

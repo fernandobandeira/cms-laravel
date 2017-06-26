@@ -42,7 +42,12 @@
 
     export default {
         mixins: [BaseIndex],
-        props: ['nome', 'defaultProps'],
+        props: ['nome', 'defaultProps', 'url', 'customParams'],
+        data() {
+            return {
+                filterText: ''                
+            };
+        },
         watch: {
             filterText(val) {
                 this.$refs.tree.filter(val);
@@ -53,32 +58,10 @@
                 if (!value) return true;
                 return data.nome.indexOf(value) !== -1;
             },
+            nodeClick(node) {
+                this.editar(node.id);
+            },
             renderContent(h, { node, data, store }) {
-                /*
-                let html = h('span', {}, [
-                    h('a', {
-                        domProps: {
-                            innerHTML: node.label
-                        },
-                        nativeOn: {
-                            click: 'editar("' + node.id + '")'
-                        }
-                    }),
-                    h('el-button', {
-                        props: {
-                            icon: 'delete',
-                            size: 'small'
-                        },
-                        domProps: {
-                            style: 'float: right; margin-right: 20px;margin-top: 4px;'
-                        },
-                        on: {
-                            click: 'dialog("' + node.id + '")'
-                        }
-                    })
-                ]);
-
-                return html;*/
                 return (
                     <span>
                         <span>
@@ -88,15 +71,7 @@
                             <el-button size="mini" icon="delete" on-click={ () => this.dialog(data.id) }></el-button>
                         </span>
                     </span>);
-            },
-            nodeClick(node) {
-                this.editar(node.id);
             }
-        },
-        data() {
-            return {
-                filterText: ''
-            };
-        }
+        }        
     };
 </script>

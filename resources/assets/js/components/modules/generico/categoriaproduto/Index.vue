@@ -1,5 +1,5 @@
 <template>
-    <tree nome="Listagem de Categorias de Produtos" :defaultProps="defaultProps"></tree>
+    <tree nome="Listagem de Categorias de Produtos" :defaultProps="defaultProps" url="/api/categoriasprodutos" :customParams="customParams"></tree>
 </template>
 
 <script>
@@ -7,8 +7,12 @@
         data() {
             return {
                 defaultProps: {
-                    children: 'children',
+                    children: 'filhas',
                     label: 'nome'
+                },
+                customParams: {
+                    _with: 'filhas',
+                    depth: 0
                 }
             }
         }
