@@ -7,7 +7,7 @@
 
 import Vue from 'vue';
 import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-default/index.css';
+import '../theme/build/index.css';
 import lang from 'element-ui/lib/locale/lang/pt-br';
 import locale from 'element-ui/lib/locale';
 import Axios from 'axios';

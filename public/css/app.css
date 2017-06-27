@@ -445,10 +445,6 @@ template {
 [hidden] {
   display: none;
 }
-/* Cores e variáveis do app */
-/* Configuração das bibliotecas */
-/* Carregamento das bibliotecas */
-/* Carregamento das páginas */
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -491,24 +487,20 @@ body {
           transform: translateY(-50%);
 }
 #app .logo svg path {
-  fill: #fff;
+  fill: #faee38;
 }
 #app .fr {
   float: right;
 }
-#app a:focus,
-#app a:active,
-#app .link:focus,
-#app .link:active {
-  outline: none;
-}
 #app a,
-#app a:focus,
-#app a:hover,
-#app .link,
-#app .link:focus,
-#app .link:hover {
+#app .link {
   cursor: pointer;
-  color: #00f;
-  text-decoration: none;
+  color: #3c3c3c;
+  outline: none;
+  text-decoration: underline;
+  transition: color 0.3s ease-in-out;
+}
+#app a:hover,
+#app .link:hover {
+  color: #b6b6b6;
 }
