@@ -18,11 +18,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Request $request)
     {
-        if (!App::runningInConsole()) {
-            $subdominio = explode('.', $_SERVER['HTTP_HOST'])[0];
-            Projeto::$tenant = Projeto::whereDominio($subdominio)->firstOrFail();
-        }
-
         Tenanti::connection('tenants', function (Projeto $entity, array $config, $database, $factory) {
             if (App::runningInConsole()) {
                 $this->mapMigrations($entity, $factory);

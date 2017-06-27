@@ -17,7 +17,7 @@ class ChangeTenant
      */
     public function handle($request, Closure $next)
     {
-        Tenanti::driver('projeto')->asDefaultConnection(Projeto::$tenant, 'tenants');
+        Tenanti::driver('projeto')->asDefaultConnection(Projeto::current(), 'tenants');
 
         return $next($request);
     }

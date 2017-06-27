@@ -27,7 +27,7 @@
             <el-form-item>
                 <el-col :span="12">
                     <el-select v-model="form.categorias" filterable multiple placeholder="Categorias">
-                        <nestedselect :item="categoria" :key="categoria[selectConfig.key]" v-for="categoria in categorias" :config="selectConfig"></nestedselect>
+                        <nestedselect :item="categoria" :key="categoria[selectConfig.key]" :onlyLeaves="true" v-for="categoria in categorias" :config="selectConfig"></nestedselect>
                     </el-select>
                 </el-col>
             </el-form-item>

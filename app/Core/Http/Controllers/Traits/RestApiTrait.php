@@ -46,10 +46,9 @@ trait RestApiTrait
             $model->refresh();
         }
 
-        $relationships = $this->model::getMTMRelations();
-        $relationships[] = 'ordem';
+        $relationships = $this->model::getMTMRelations();        
 
-        $model->update($this->request->except($relationships));
+        $model->update($this->request->except($relationships + ['ordem']));
 
         foreach($relationships as $relationship) {
             if($this->request->has($relationship)) {

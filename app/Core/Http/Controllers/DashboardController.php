@@ -14,7 +14,7 @@ class DashboardController extends Controller
 
     public function modulos()
     {
-        $modulos = Projeto::$tenant->modulos;
+        $modulos = Projeto::current()->modulos;
         $modulos->map(function ($item) {
             $item->rota = route(strtolower($item->modulo . '.index'));
         });
@@ -24,8 +24,8 @@ class DashboardController extends Controller
 
     public function projetos()
     {
-        $projetos = Projeto::where('dominio', '!=', Projeto::$tenant->dominio)->get();
-        $projetos['ativo'] = Projeto::$tenant;
+        $projetos = Projeto::where('dominio', '!=', Projeto::current()->dominio)->get();
+        $projetos['ativo'] = Projeto::current();
 
         return $projetos;
     }

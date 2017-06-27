@@ -3,7 +3,10 @@
 namespace App\Core\Providers;
 
 use App;
+use File;
 use Schema;
+use Storage;
+use Artisan;
 use App\Core\Models\Projeto;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -41,29 +44,16 @@ class RouteServiceProvider extends ServiceProvider
         // Verifica se a migration da tabela modulos já rodou para registrar
         // as rotas e migrations específicas para cada módulo da aplicação
         if (!App::runningInConsole() && Schema::hasTable('modulos')) {
-            $rotas['App\Core\Http\Controllers'] = __DIR__ . '/../Http/routes.php';
+            $caminho = 'routes/'.Projeto::current()->dominio.'.php';
 
-            if (Projeto::$tenant !== null && Projeto::$tenant->modulos->first() !== null) {
-                foreach (Projeto::$tenant->modulos as $m) {
-                    $segmento = studly_case($m->segmento);
-                    $modulo = studly_case($m->modulo);
-                    $base = __DIR__ . '/../../Modules/' . $segmento . '/' . $modulo . '/';
-                    $namespace = 'App\Modules\\' . $segmento . '\\' . $modulo;
-
-                    // Registra o diretório para carregar as migrations e rotas,
-                    $rotas[$namespace] = $base . 'routes.php';
-                }
+            if (App::environment('production') && Storage::exists($caminho)) {
+                require storage_path('app/'.$caminho);
+                return;
             }
 
-            Route::middleware('api')->group(function () use ($rotas) {
-                foreach ($rotas as $namespace => $arquivo) {
-                    Route::namespace($namespace)->group(
-                        function () use ($arquivo) {
-                            require_once $arquivo;
-                        }
-                    );
-                }
-            });
+            Artisan::call('tenanti:route', [ 'entity' => Projeto::current()->id ]);
+
+            require storage_path('app/'.$caminho);
         }
     }
 }

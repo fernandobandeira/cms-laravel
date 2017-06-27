@@ -27,10 +27,7 @@
             <el-table-column
                 prop="categorias"
                 label="Categorias"
-                width="140"
-                :filters="[{ text: 'Home', value: 'Home' }, { text: 'Office', value: 'Office' }]"
-                :filter-method="filterTag"
-                filter-placement="bottom-end">
+                width="140">
                 <template scope="scope">
                     <el-tag
                     v-for="categoria in scope.row.categorias"
@@ -98,7 +95,8 @@
             return {
                 customParams: {
                     _with: 'categorias'
-                }
+                },
+                categorias: []
             }
         }
     }

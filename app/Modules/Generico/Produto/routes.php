@@ -19,6 +19,6 @@ Route::as('produto.')->prefix('produtos')->group(
     function () {
         Route::name('index')->get('/', 'Controller@index');
         Route::name('create')->get('/novo', 'Controller@create');        
-        Route::name('edit')->get('/{produto}/editar', 'Controller@edit');
+        Route::name('edit')->get('/{produto}/editar', 'Controller@edit');        
     }
 );
