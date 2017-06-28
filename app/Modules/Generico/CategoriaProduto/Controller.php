@@ -2,12 +2,12 @@
 
 namespace App\Modules\Generico\CategoriaProduto;
 
-use App\Core\Http\Controllers\Traits\RestTrait;
+use App\Core\Http\Controllers\Traits\NestedRestTrait;
 use App\Core\Http\Controllers\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    use RestTrait;
+    use NestedRestTrait;
 
     protected $baseView = 'modules.generico.categoriaproduto';
 

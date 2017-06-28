@@ -61,16 +61,27 @@
             nodeClick(node) {
                 this.editar(node.id);
             },
-            renderContent(h, { node, data, store }) {
+            reorder(id, direction) {
+                let self = this;
+
+                window.axios.put(this.url + '/' + id, { ordem: direction })
+                .then(function(response) {
+                    self.getData();
+                });
+            },
+            renderContent(h, { node, data, store }) {                
                 return (
                     <span>
                         <span>
                             <span class="link" on-click={ () => this.editar(data.id) }>{node.label}</span>
                         </span>
                         <span style="float: right; margin-right: 20px">
+                            <el-button size="mini" icon="arrow-up" on-click={ () => this.reorder(data.id, 'sobe') }></el-button>
+                            <el-button size="mini" icon="arrow-down" on-click={ () => this.reorder(data.id, 'desce') }></el-button>
                             <el-button size="mini" icon="delete" on-click={ () => this.dialog(data.id) }></el-button>
                         </span>
-                    </span>);
+                    </span>
+                );
             }
         }        
     };

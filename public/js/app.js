@@ -16525,6 +16525,13 @@ exports.default = {
         nodeClick: function nodeClick(node) {
             this.editar(node.id);
         },
+        reorder: function reorder(id, direction) {
+            var self = this;
+
+            window.axios.put(this.url + '/' + id, { ordem: direction }).then(function (response) {
+                self.getData();
+            });
+        },
         renderContent: function renderContent(h, _ref) {
             var _this = this;
 
@@ -16552,6 +16559,28 @@ exports.default = {
                     'span',
                     { style: 'float: right; margin-right: 20px' },
                     [h(
+                        'el-button',
+                        {
+                            attrs: { size: 'mini', icon: 'arrow-up' },
+                            on: {
+                                'click': function click() {
+                                    return _this.reorder(data.id, 'sobe');
+                                }
+                            }
+                        },
+                        []
+                    ), h(
+                        'el-button',
+                        {
+                            attrs: { size: 'mini', icon: 'arrow-down' },
+                            on: {
+                                'click': function click() {
+                                    return _this.reorder(data.id, 'desce');
+                                }
+                            }
+                        },
+                        []
+                    ), h(
                         'el-button',
                         {
                             attrs: { size: 'mini', icon: 'delete' },
@@ -120380,7 +120409,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "form.destaque"
     }
-  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-col', {
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Referência"
+    }
+  }, [_c('el-col', {
     attrs: {
       "span": 12
     }
@@ -120395,7 +120428,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "form.referencia"
     }
-  })], 1)], 1), _vm._v(" "), _c('el-form-item', [_c('el-col', {
+  })], 1)], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Nome"
+    }
+  }, [_c('el-col', {
     attrs: {
       "span": 12
     }
@@ -120410,7 +120447,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "form.nome"
     }
-  })], 1)], 1), _vm._v(" "), _c('el-form-item', [_c('el-col', {
+  })], 1)], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Categorias"
+    }
+  }, [_c('el-col', {
     attrs: {
       "span": 12
     }
@@ -120657,7 +120698,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "form.ativo"
     }
-  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-col', {
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Nome"
+    }
+  }, [_c('el-col', {
     attrs: {
       "span": 12
     }
@@ -120672,7 +120717,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "form.nome"
     }
-  })], 1)], 1), _vm._v(" "), _c('el-form-item', [_c('el-col', {
+  })], 1)], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Categoria Pai"
+    }
+  }, [_c('el-col', {
     attrs: {
       "span": 12
     }

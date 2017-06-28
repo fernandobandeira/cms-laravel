@@ -14,17 +14,17 @@
             <el-form-item label="Destaque">
                 <el-switch on-text="" off-text="" v-model="form.destaque"></el-switch>
             </el-form-item>
-            <el-form-item>
+            <el-form-item label="Referência">
                 <el-col :span="12">
                     <el-input placeholder="Referência" v-model="form.referencia"></el-input>
                 </el-col>
             </el-form-item>
-            <el-form-item>
+            <el-form-item label="Nome">
                 <el-col :span="12">
                     <el-input placeholder="Nome" v-model="form.nome"></el-input>
                 </el-col>
             </el-form-item>
-            <el-form-item>
+            <el-form-item label="Categorias">
                 <el-col :span="12">
                     <el-select v-model="form.categorias" filterable multiple placeholder="Categorias">
                         <nestedselect :item="categoria" :key="categoria[selectConfig.key]" :onlyLeaves="true" v-for="categoria in categorias" :config="selectConfig"></nestedselect>
