@@ -26,13 +26,14 @@
                     </div>
                 </a>
             </el-menu-item>
-            <el-submenu index="2" class="fr">
-                <template slot="title">Workspace</template>
-                <el-menu-item index="2-1">item one</el-menu-item>
-                <el-menu-item index="2-2">item two</el-menu-item>
-                <el-menu-item index="2-3">item three</el-menu-item>
+            
+            <el-submenu index="3" class="nav fr">
+                <template slot="title">Fernando H. Bandeira</template>
+                <el-menu-item index="3-1">Minha Conta</el-menu-item>
+                <el-menu-item index="3-2">Sair</el-menu-item>
             </el-submenu>
-            <el-menu-item index="3" class="fr"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
+
+            <gerenciadores></gerenciadores>
         </el-menu>
         <el-row>
             <el-col :span="3">

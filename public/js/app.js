@@ -13790,10 +13790,6 @@ var _Login = __webpack_require__(133);
 
 var _Login2 = _interopRequireDefault(_Login);
 
-var _Navbar = __webpack_require__(134);
-
-var _Navbar2 = _interopRequireDefault(_Navbar);
-
 var _Sidenav = __webpack_require__(136);
 
 var _Sidenav2 = _interopRequireDefault(_Sidenav);
@@ -13842,13 +13838,13 @@ var _Form4 = _interopRequireDefault(_Form3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+window.axios = _axios2.default;
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-window.axios = _axios2.default;
 window.vue = _vue2.default;
 
 _locale2.default.use(_ptBr2.default);
@@ -13858,7 +13854,6 @@ _vue2.default.use(_vueTinymce2.default);
 window.helpers = _helpers2.default;
 
 _vue2.default.component('login', _Login2.default);
-_vue2.default.component('navbar', _Navbar2.default);
 _vue2.default.component('sidenav', _Sidenav2.default);
 _vue2.default.component('gerenciadores', _Gerenciadores2.default);
 _vue2.default.component('datatable', _Datatable2.default);
@@ -16172,27 +16167,6 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 exports.default = {
     data: function data() {
@@ -16236,6 +16210,7 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+//
 //
 //
 //
@@ -16370,38 +16345,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 80 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-exports.default = {
-    methods: {
-        navegar: function navegar(rota) {
-            window.location.href = rota;
-        }
-    }
-};
-
-/***/ }),
+/* 80 */,
 /* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -119580,40 +119524,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 134 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(3)(
-  /* script */
-  __webpack_require__(80),
-  /* template */
-  __webpack_require__(142),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "C:\\Users\\User\\Desktop\\Code\\gerenciador\\resources\\assets\\js\\components\\Navbar.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Navbar.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-07824361", Component.options)
-  } else {
-    hotAPI.reload("data-v-07824361", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 134 */,
 /* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -119852,50 +119763,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 142 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-menu', {
-    staticClass: "el-menu-default",
-    attrs: {
-      "mode": "horizontal"
-    }
-  }, [_c('el-menu-item', {
-    attrs: {
-      "index": "Dashboard"
-    },
-    on: {
-      "click": function($event) {
-        _vm.navegar('/')
-      }
-    }
-  }, [_vm._v("Dashboard")]), _vm._v(" "), _c('el-submenu', {
-    staticClass: "nav",
-    attrs: {
-      "index": "3"
-    }
-  }, [_c('template', {
-    slot: "title"
-  }, [_vm._v("Fernando H. Bandeira")]), _vm._v(" "), _c('el-menu-item', {
-    attrs: {
-      "index": "3-1"
-    }
-  }, [_vm._v("Minha Conta")]), _vm._v(" "), _c('el-menu-item', {
-    attrs: {
-      "index": "3-2"
-    }
-  }, [_vm._v("Sair")])], 2), _vm._v(" "), _c('gerenciadores')], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-07824361", module.exports)
-  }
-}
-
-/***/ }),
+/* 142 */,
 /* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -119922,42 +119790,26 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('v-list', {
-    staticClass: "pa-0"
-  }, [_c('v-list-item', [_c('div', {
-    staticClass: "gerenciadores"
-  }, [_c('v-list-tile', {
+  return _c('el-submenu', {
+    staticClass: "nav fr",
     attrs: {
-      "tag": "ul"
+      "index": "2"
     }
-  }, [_c('v-menu', {
-    attrs: {
-      "offset-y": ""
-    }
-  }, [_c('v-btn', {
-    attrs: {
-      "flat": "",
-      "block": ""
-    },
-    slot: "activator"
-  }, [_c('div', {
-    staticClass: "left"
-  }, [_vm._v("\n                            " + _vm._s(_vm.projetoAtivo) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "right"
-  }, [_c('v-icon', {
-    attrs: {
-      "dark": ""
-    }
-  }, [_vm._v("arrow_drop_down")])], 1)]), _vm._v(" "), _c('v-list', _vm._l((_vm.projetos), function(projeto) {
-    return _c('v-list-item', {
+  }, [_c('template', {
+    slot: "title"
+  }, [_vm._v(_vm._s(_vm.projetoAtivo))]), _vm._v(" "), _vm._l((_vm.projetos), function(projeto) {
+    return _c('el-menu-item', {
       key: projeto.id,
+      attrs: {
+        "index": projeto.id
+      },
       on: {
         "click": function($event) {
           _vm.navegar(projeto.dominio)
         }
       }
-    }, [_c('v-list-tile', [_c('v-list-tile-title', [_vm._v(_vm._s(projeto.nome))])], 1)], 1)
-  }))], 1)], 1)], 1)])], 1)
+    }, [_vm._v(_vm._s(projeto.nome))])
+  })], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -120022,35 +119874,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "d": "M98.961,57.274c-0.022,0-0.042-0.002-0.063-0.002c-0.007,0-0.015,0.002-0.021,0.002c0,0,0-0.002,0-0.004\n                                c-1.749-0.045-3.138-1.473-3.138-3.232c0-0.119,0.006-15.146,0.006-15.146l6.485-0.031l5.835-7.471h-12.32V20.068l-9.431-0.401\n                                h-0.013v35.852c0,1.66,0.363,3.236,1.014,4.652c0.02,0.045,0.04,0.09,0.062,0.133c0.029,0.064,0.061,0.127,0.091,0.189\n                                c1.755,3.58,5.366,6.146,9.848,6.213l0.507-0.002c1.814-0.023,3.451-0.232,4.932-0.58c1.962-0.615,3.716-1.695,5.135-3.113\n                                l-6.395-6.418C100.718,57.071,99.849,57.274,98.961,57.274z"
     }
   })])])])])]), _vm._v(" "), _c('el-submenu', {
-    staticClass: "fr",
-    attrs: {
-      "index": "2"
-    }
-  }, [_c('template', {
-    slot: "title"
-  }, [_vm._v("Workspace")]), _vm._v(" "), _c('el-menu-item', {
-    attrs: {
-      "index": "2-1"
-    }
-  }, [_vm._v("item one")]), _vm._v(" "), _c('el-menu-item', {
-    attrs: {
-      "index": "2-2"
-    }
-  }, [_vm._v("item two")]), _vm._v(" "), _c('el-menu-item', {
-    attrs: {
-      "index": "2-3"
-    }
-  }, [_vm._v("item three")])], 2), _vm._v(" "), _c('el-menu-item', {
-    staticClass: "fr",
+    staticClass: "nav fr",
     attrs: {
       "index": "3"
     }
-  }, [_c('a', {
+  }, [_c('template', {
+    slot: "title"
+  }, [_vm._v("Fernando H. Bandeira")]), _vm._v(" "), _c('el-menu-item', {
     attrs: {
-      "href": "https://www.ele.me",
-      "target": "_blank"
+      "index": "3-1"
     }
-  }, [_vm._v("Orders")])])], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
+  }, [_vm._v("Minha Conta")]), _vm._v(" "), _c('el-menu-item', {
+    attrs: {
+      "index": "3-2"
+    }
+  }, [_vm._v("Sair")])], 2), _vm._v(" "), _c('gerenciadores')], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
     attrs: {
       "span": 3
     }
