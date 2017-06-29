@@ -7,9 +7,9 @@ use Cviebrock\EloquentSluggable\Sluggable;
 
 class Model extends BaseModel
 {
-    use Sluggable;
+    use Sluggable;    
 
-    protected $table = 'produtos';
+    protected $table = 'produtos';    
 
     public static $search = [
         'nome',
@@ -18,14 +18,16 @@ class Model extends BaseModel
     ];
 
     protected $rules = [
-        'nome'   => 'required',
+        'nome'  => 'required|max:150',
+        'referencia' => 'max:45',
     ];
 
     /**
      * @Relation
      * @ManyToMany
      */
-    public function categorias() {
+    public function categorias()
+    {
         return $this->belongsToMany('App\Modules\Generico\CategoriaProduto\Model', 'categorias_produtos_produtos', 'produto_id', 'categoria_produto_id');
     }
 }

@@ -22,11 +22,23 @@ export default {
                     .then(function(response) {
                         self.url = self.url.replace('/' + response.data.id, '');
                         window.location.href = window.location.href.replace('/editar', '').replace('/' + self.customParams.id, '');
+                    })
+                    .catch(function (error) {
+                        if (error.response) {                          
+                          self.handleErrors(error.response.data.mensagem);
+                          self.loading = false;
+                        }                        
                     });
             } else {
                 window.axios.post(this.url, this.form)
                     .then(function(response) {
                         window.location.href = window.location.href.replace('/novo', '');
+                    })
+                    .catch(function (error) {
+                        if (error.response) {
+                          self.handleErrors(error.response.data.mensagem);
+                          self.loading = false;
+                        }                        
                     });
             }
         },
@@ -49,6 +61,27 @@ export default {
                     self.afterLoad();
                     self.loadingForm = false;
                 });
+        },
+        handleErrors(errors) {
+            let self = this;
+
+            if (typeof errors == "string") {
+                this.$message({
+                  showClose: true,
+                  message: errors,
+                  type: 'error'
+                });                
+            } else {                
+                for (var field in errors) {                    
+                    errors[field].forEach(function(error) {
+                        self.$message({
+                          showClose: true,
+                          message: error,
+                          type: 'error'
+                        });                        
+                    });
+                };
+            }
         },
         afterLoad() {
 

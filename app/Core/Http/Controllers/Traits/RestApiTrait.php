@@ -85,10 +85,10 @@ trait RestApiTrait
     {
         $relationships = $this->model::getMTMRelations();
 
-        $data = $this->request->except($relationships);
-        if (isset($data[0])) {
-            $model->{$method}($this->request->except($data));
-        }
+        $data = $this->request->except($relationships);        
+        if (!empty($data)) {
+            $model->{$method}($data);            
+        }        
 
         foreach($relationships as $relationship) {
             if($this->request->has($relationship)) {

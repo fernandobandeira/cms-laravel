@@ -504,3 +504,9 @@ body {
 #app .link:hover {
   color: #b6b6b6;
 }
+#app .el-alert {
+  margin-bottom: 10px;
+}
+#app .el-alert:last-of-type {
+  margin-bottom: 20px;
+}

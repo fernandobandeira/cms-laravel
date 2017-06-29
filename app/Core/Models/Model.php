@@ -9,14 +9,14 @@ abstract class Model extends BaseModel
 {
     use SortableTrait;
     use BaseModelTrait;
-
-    protected $observables = ['validating'];
+    
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     public $incrementing = false;
 
     protected static $sortableField = 'ordem';
 
-    public static function boot() {
+    public static function boot()
+    {
     	self::bootBaseModelTrait();
         self::bootSortableTrait();
 

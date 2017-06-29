@@ -9,7 +9,7 @@ trait BaseModelTrait
 {
     use ValidatingTrait;
 
-    protected $throwValidationExceptions = true;    
+    protected $throwValidationExceptions = true;
     public static $search = [];
     protected $rules;
 
@@ -22,7 +22,8 @@ trait BaseModelTrait
         ];
     }
 
-    public static function bootBaseModelTrait() {
+    public static function bootBaseModelTrait()
+    {
         self::bootValidatingTrait();
 
         $uses = class_uses(new static);

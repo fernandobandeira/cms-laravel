@@ -44,6 +44,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \Watson\Validating\ValidationException) {            
+            return response()->json(['erro' => true] + [ 'mensagem' => $exception->errors()->messages() ], 400);
+        }
+        
         return parent::render($request, $exception);
     }
 

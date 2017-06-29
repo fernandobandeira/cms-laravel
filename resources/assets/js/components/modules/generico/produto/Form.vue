@@ -3,28 +3,28 @@
         <div slot="header" class="clearfix">
             <span style="line-height: 36px;">{{nome}} Produto</span>
             <el-button size="small" type="primary" icon="check" class="fr" @click="onSubmit" :loading="loading">Salvar</el-button>
-        </div>
-        <el-form ref="form" :model="form" label-width="120px" v-loading.fullscreen="loadingForm" element-loading-text="Carregando...">
-            <el-form-item label="Ativo">
+        </div>        
+        <el-form ref="form" :rules="rules" :model="form" label-width="120px" v-loading.fullscreen="loadingForm" element-loading-text="Carregando...">
+            <el-form-item label="Ativo" prop="ativo">
                 <el-switch on-text="" off-text="" v-model="form.ativo"></el-switch>
             </el-form-item>
-            <el-form-item label="Disponível">
+            <el-form-item label="Disponível" prop="disponivel">
                 <el-switch on-text="" off-text="" v-model="form.disponivel"></el-switch>
             </el-form-item>
-            <el-form-item label="Destaque">
+            <el-form-item label="Destaque" prop="destaque">
                 <el-switch on-text="" off-text="" v-model="form.destaque"></el-switch>
             </el-form-item>
-            <el-form-item label="Referência">
+            <el-form-item label="Referência" prop="referencia">
                 <el-col :span="12">
                     <el-input placeholder="Referência" v-model="form.referencia"></el-input>
                 </el-col>
             </el-form-item>
-            <el-form-item label="Nome">
+            <el-form-item label="Nome" prop="nome">
                 <el-col :span="12">
                     <el-input placeholder="Nome" v-model="form.nome"></el-input>
                 </el-col>
             </el-form-item>
-            <el-form-item label="Categorias">
+            <el-form-item label="Categorias" prop="categorias">
                 <el-col :span="12">
                     <el-select v-model="form.categorias" filterable multiple placeholder="Categorias">
                         <nestedselect :item="categoria" :key="categoria[selectConfig.key]" :onlyLeaves="true" v-for="categoria in categorias" :config="selectConfig"></nestedselect>
@@ -55,6 +55,15 @@
                     nome: '',
                     descricao: '',
                     categorias : []
+                },
+                rules: {
+                    nome: [
+                        { required: true, message: 'Informe um nome', trigger: 'blur' },
+                        { max: 150, message: 'O nome não pode ter mais do que 150 caracteres', trigger: 'blur' }
+                    ],
+                    referencia: [
+                        { max: 45, message: 'A referência não pode ter mais do que 45 caracteres', trigger: 'blur' }
+                    ]
                 },
                 categorias: [],
                 descricao: '',

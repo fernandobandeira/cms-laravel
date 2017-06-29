@@ -16,7 +16,7 @@ class Model extends NestedModel
     ];
 
     protected $rules = [
-        'nome'   => 'required',
+        'nome'   => 'required|max:150',
     ];
 
     /**

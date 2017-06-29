@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-menu theme="dark" :default-active="''" mode="horizontal">
-            <el-menu-item index="1">
+            <el-menu-item index="index">
                 <a href="/">
                     <div class="logo">
                         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -27,10 +27,10 @@
                 </a>
             </el-menu-item>
             
-            <el-submenu index="3" class="nav fr">
+            <el-submenu index="index" class="nav fr">
                 <template slot="title">Fernando H. Bandeira</template>
-                <el-menu-item index="3-1">Minha Conta</el-menu-item>
-                <el-menu-item index="3-2">Sair</el-menu-item>
+                <el-menu-item index="index">Minha Conta</el-menu-item>
+                <el-menu-item index="index">Sair</el-menu-item>
             </el-submenu>
 
             <gerenciadores></gerenciadores>
