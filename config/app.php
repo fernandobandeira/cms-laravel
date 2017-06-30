@@ -171,7 +171,8 @@ return [
         Orchestra\Tenanti\TenantiServiceProvider::class,
         Orchestra\Tenanti\CommandServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
-        Baum\Providers\BaumServiceProvider::class,        
+        Baum\Providers\BaumServiceProvider::class,
+        Spatie\Glide\GlideServiceProvider::class,   
 
         /*
          * Application Service Providers...
@@ -213,6 +214,7 @@ return [
         'Event' => Illuminate\Support\Facades\Event::class,
         'File' => Illuminate\Support\Facades\File::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
+        'Glide' => Spatie\Glide\GlideImageFacade::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,

@@ -23,8 +23,7 @@ class CreateProdutosTable extends Migration
                 $table->string('slug', 150)->nullable();
                 $table->string('referencia', 45)->nullable();
                 $table->text('descricao')->nullable();
-                $table->integer('ordem')->nullable();
-                $table->softDeletes();
+                $table->integer('ordem')->nullable();                
                 $table->timestamps();
 
                 $table->primary('id');

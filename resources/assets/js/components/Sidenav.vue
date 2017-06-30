@@ -1,14 +1,13 @@
 <template>
     <el-menu v-loading.body="loading" defaultActive="''">
-        <el-menu-item :index="modulo.modulo" v-for="modulo in modulos" :key="modulo.id" @click="navegar(modulo)">{{ modulo.nome }}</el-menu-item>
+        <el-menu-item :index="modulo.modulo" v-for="modulo in $root.modulos" :key="modulo.id" @click="navegar(modulo)">{{ modulo.nome }}</el-menu-item>
     </el-menu>
 </template>
 
 <script>
     export default {
         data: function() {
-            return {
-                modulos: [],
+            return {                
                 loading: true
             }
         },
@@ -23,7 +22,7 @@
                     .then(function(response) {
                         self.loading = false;
 
-                        self.modulos = response.data;
+                        self.$root.modulos = response.data;
                     });
             }
         },

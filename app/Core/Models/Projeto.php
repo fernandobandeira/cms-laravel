@@ -12,7 +12,7 @@ class Projeto extends Model
 
     public function modulos()
     {
-        return $this->belongsToMany('App\Core\Models\Modulo', 'projetos_modulos');
+        return $this->belongsToMany('App\Core\Models\Modulo', 'projetos_modulos')->orderBy('nome');
     }
 
     public static function current()

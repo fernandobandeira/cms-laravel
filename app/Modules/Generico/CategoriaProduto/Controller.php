@@ -9,8 +9,6 @@ class Controller extends BaseController
 {
     use NestedRestTrait;
 
-    protected $baseView = 'modules.generico.categoriaproduto';
-
     protected $transformer = Transformer::class;
     protected $model = Model::class;
 }

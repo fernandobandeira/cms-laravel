@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Generico\Produto;
+namespace App\Modules\Generico\Galeria;
 
 use App\Core\Http\Controllers\Traits\RestTrait;
 use App\Core\Http\Controllers\Controller as BaseController;

@@ -1,28 +1,25 @@
 <?php
 
-namespace App\Modules\Generico\Produto;
+namespace App\Modules\Generico\Galeria;
 
-use \Rutorika\Sortable\SortableTrait;
 use App\Core\Models\Model as BaseModel;
-use Cviebrock\EloquentSluggable\Sluggable;
 
 class Model extends BaseModel
 {
-    use Sluggable;
-    use SortableTrait;    
-
-    protected $table = 'produtos';    
+    protected $table = 'galerias';
 
     public static $search = [
-        'nome',
-        'referencia',
-        'descricao'
+        'nome'
     ];
 
     protected $rules = [
-        'nome'  => 'required|max:150',
-        'referencia' => 'max:45',
+        'nome'  => 'required|max:150'        
     ];
+
+    public function scopeSorted($query)
+    {
+        return $query->orderBy('id');
+    }
 
     /**
      * @Relation

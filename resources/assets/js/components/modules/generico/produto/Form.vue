@@ -3,40 +3,63 @@
         <div slot="header" class="clearfix">
             <span style="line-height: 36px;">{{nome}} Produto</span>
             <el-button size="small" type="primary" icon="check" class="fr" @click="onSubmit" :loading="loading">Salvar</el-button>
-        </div>        
-        <el-form ref="form" :rules="rules" :model="form" label-width="120px" v-loading.fullscreen="loadingForm" element-loading-text="Carregando...">
-            <el-form-item label="Ativo" prop="ativo">
-                <el-switch on-text="" off-text="" v-model="form.ativo"></el-switch>
-            </el-form-item>
-            <el-form-item label="Disponível" prop="disponivel">
-                <el-switch on-text="" off-text="" v-model="form.disponivel"></el-switch>
-            </el-form-item>
-            <el-form-item label="Destaque" prop="destaque">
-                <el-switch on-text="" off-text="" v-model="form.destaque"></el-switch>
-            </el-form-item>
-            <el-form-item label="Referência" prop="referencia">
-                <el-col :span="12">
-                    <el-input placeholder="Referência" v-model="form.referencia"></el-input>
-                </el-col>
-            </el-form-item>
-            <el-form-item label="Nome" prop="nome">
-                <el-col :span="12">
-                    <el-input placeholder="Nome" v-model="form.nome"></el-input>
-                </el-col>
-            </el-form-item>
-            <el-form-item label="Categorias" prop="categorias">
-                <el-col :span="12">
-                    <el-select v-model="form.categorias" filterable multiple placeholder="Categorias">
-                        <nestedselect :item="categoria" :key="categoria[selectConfig.key]" :onlyLeaves="true" v-for="categoria in categorias" :config="selectConfig"></nestedselect>
-                    </el-select>
-                </el-col>
-            </el-form-item>
-            <el-form-item label="Descrição">
-                <el-col :span="24">
-                    <tinymce id="tinymce" v-model="form.descricao" :options="editorOptions" :content="descricao"></tinymce>
-                </el-col>
-            </el-form-item>
-        </el-form>
+        </div>
+        <el-row :gutter="20">
+            <el-col :span="12">
+                <el-form ref="form" :rules="rules" :model="form" label-width="120px" v-loading.fullscreen="loadingForm" element-loading-text="Carregando...">
+                    <el-form-item label="Ativo" prop="ativo">
+                        <el-switch on-text="" off-text="" v-model="form.ativo"></el-switch>
+                    </el-form-item>
+                    <el-form-item label="Disponível" prop="disponivel">
+                        <el-switch on-text="" off-text="" v-model="form.disponivel"></el-switch>
+                    </el-form-item>
+                    <el-form-item label="Destaque" prop="destaque">
+                        <el-switch on-text="" off-text="" v-model="form.destaque"></el-switch>
+                    </el-form-item>
+                    <el-form-item label="Referência" prop="referencia">                
+                        <el-input placeholder="Referência" v-model="form.referencia"></el-input>                
+                    </el-form-item>
+                    <el-form-item label="Nome" prop="nome">                
+                        <el-input placeholder="Nome" v-model="form.nome"></el-input>                
+                    </el-form-item>
+                    <el-form-item label="Categorias" prop="categorias">                
+                        <el-select v-model="form.categorias" filterable multiple placeholder="Categorias">
+                            <nestedselect :item="categoria" :key="categoria[selectConfig.key]" :onlyLeaves="true" v-for="categoria in categorias" :config="selectConfig"></nestedselect>
+                        </el-select>                
+                    </el-form-item>
+                    <el-form-item label="Descrição">                        
+                        <tinymce id="tinymce" v-model="form.descricao" :options="editorOptions" :content="descricao"></tinymce>                        
+                    </el-form-item>
+                </el-form>
+            </el-col>
+            <el-col :span="12">
+                <div class="galeria">
+                    <span class="titulo">Imagens dos Produtos</span>
+                    <span class="subtitulo">Desktop</span>
+                    <vue-core-image-upload
+                        crop-ratio="3:4"
+                        class="el-button el-button--primary el-button--small"
+                        crop="local"
+                        url="http://101.198.151.190/api/upload.php"
+                        extensions="png,jpeg,jpg"
+                        text="Adicionar Imagem"
+                        :cropBtn="{ok:'Salvar','cancel':'Cancelar'}"
+                        @imageuploaded="crpoServerImageUploaded">
+                    </vue-core-image-upload>
+                    <span class="subtitulo">Mobile</span>
+                    <vue-core-image-upload
+                        crop-ratio="3:4"
+                        class="el-button el-button--primary el-button--small"
+                        crop="local"
+                        url="http://101.198.151.190/api/upload.php"
+                        extensions="png,jpeg,jpg"
+                        text="Adicionar Imagem"
+                        :cropBtn="{ok:'Salvar','cancel':'Cancelar'}"
+                        @imageuploaded="crpoServerImageUploaded">
+                    </vue-core-image-upload>
+                </div>
+            </el-col>
+        </el-row>
     </el-card>
 </template>
 
@@ -46,7 +69,7 @@
     export default {
         mixins: [BaseForm],
         data() {
-            return {
+            return {                
                 form: {
                     ativo: true,
                     disponivel: true,

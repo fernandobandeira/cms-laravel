@@ -510,3 +510,31 @@ body {
 #app .el-alert:last-of-type {
   margin-bottom: 20px;
 }
+#app .g-core-image-corp-container .btn-upload {
+  background: #3c3c3c;
+  border-color: #3c3c3c;
+  border-radius: 4px;
+}
+#app .g-core-image-corp-container .btn-upload:hover {
+  background: #636363;
+  border-color: #636363;
+}
+#app .g-resize-bar {
+  background: #636363;
+}
+#app .g-resize-highlight {
+  background: #3c3c3c;
+}
+#app .galeria {
+  border-bottom: 1px solid #d8d8d8;
+  padding-bottom: 10px;
+}
+#app .galeria .titulo {
+  display: block;
+  margin-bottom: 20px;
+}
+#app .galeria .subtitulo {
+  display: block;
+  margin: 15px 0;
+  font-size: 14px;
+}

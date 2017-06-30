@@ -31,6 +31,9 @@ trait BaseModelTrait
         if (isset($uses['Cviebrock\EloquentSluggable\Sluggable'])) {
             self::bootSluggable();
         }
+        if (isset($uses['\Rutorika\Sortable\SortableTrait'])) {
+            self::bootSortable();
+        }
 
         self::creating(function($model) {
             if($model->id === null) { //TODO Checar se UUID é válido
