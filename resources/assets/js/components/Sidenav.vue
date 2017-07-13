@@ -1,5 +1,5 @@
 <template>
-    <el-menu v-loading.body="loading" defaultActive="''">
+    <el-menu v-loading.body="loading" defaultActive="">
         <el-menu-item :index="modulo.modulo" v-for="modulo in $root.modulos" :key="modulo.id" @click="navegar(modulo)">{{ modulo.nome }}</el-menu-item>
     </el-menu>
 </template>

@@ -27,10 +27,10 @@
                 </a>
             </el-menu-item>
             
-            <el-submenu index="index" class="nav fr">
+            <el-submenu index="index1" class="nav fr">
                 <template slot="title">Fernando H. Bandeira</template>
-                <el-menu-item index="index">Minha Conta</el-menu-item>
-                <el-menu-item index="index">Sair</el-menu-item>
+                <el-menu-item index="index2">Minha Conta</el-menu-item>
+                <el-menu-item index="index3">Sair</el-menu-item>
             </el-submenu>
 
             <gerenciadores></gerenciadores>

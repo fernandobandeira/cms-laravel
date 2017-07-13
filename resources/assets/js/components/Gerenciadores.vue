@@ -1,7 +1,7 @@
 <template>
-    <el-submenu index="index" class="nav fr">
+    <el-submenu index="index4" class="nav fr">
         <template slot="title">{{ projetoAtivo }}</template>
-        <el-menu-item index="index" v-for="projeto in projetos" :key="projeto.id" @click="navegar(projeto.dominio)">{{ projeto.nome }}</el-menu-item>        
+        <el-menu-item index="index5" v-for="projeto in projetos" :key="projeto.id" @click="navegar(projeto.dominio)">{{ projeto.nome }}</el-menu-item>        
     </el-submenu>
 </template>
 
